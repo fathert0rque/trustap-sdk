@@ -27,9 +27,9 @@
     "test": "vitest --run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
-    "generate:types": "npx openapi-typescript https://docs.trustap.com/_spec/apis/openapi.yaml -o src/schema.d.ts",
+    "generate:types": "npx openapi-typescript https://docs.trustap.com/apis/trustap-openapi.yaml -o src/schema.d.ts",
     "generate:ops": "node ./scripts/generate-operations-map.mjs",
-    "generate:security": "node ./scripts/generate-security-map.mjs \"../../Downloads/openapi (2).json\"",
+    "generate:security": "node ./scripts/generate-security-map.mjs https://docs.trustap.com/apis/trustap-openapi.yaml",
     "generate": "npm run generate:types && npm run generate:ops && npm run generate:security"
   },
   "dependencies": {
