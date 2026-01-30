@@ -252,10 +252,11 @@ export const basicTxPaymentReviewFinishedEventSchema = createEventSchema(
   paidTargetPreviewSchema,
 );
 
-export const basicTxTrackingDetailsSubmissionDeadlineExtendedEventSchema = createEventSchema(
-  "basic_tx.tracking_details_submission_deadline_extended",
-  paidTargetPreviewSchema,
-);
+export const basicTxTrackingDetailsSubmissionDeadlineExtendedEventSchema =
+  createEventSchema(
+    "basic_tx.tracking_details_submission_deadline_extended",
+    paidTargetPreviewSchema,
+  );
 
 export const basicTxTrackedEventSchema = createEventSchema(
   "basic_tx.tracked",
@@ -384,17 +385,39 @@ export type BasicTxJoinedEvent = z.infer<typeof basicTxJoinedEventSchema>;
 export type BasicTxRejectedEvent = z.infer<typeof basicTxRejectedEventSchema>;
 export type BasicTxCancelledEvent = z.infer<typeof basicTxCancelledEventSchema>;
 export type BasicTxClaimedEvent = z.infer<typeof basicTxClaimedEventSchema>;
-export type BasicTxListingTransactionAcceptedEvent = z.infer<typeof basicTxListingTransactionAcceptedEventSchema>;
-export type BasicTxListingTransactionRejectedEvent = z.infer<typeof basicTxListingTransactionRejectedEventSchema>;
-export type BasicTxPaymentFailedEvent = z.infer<typeof basicTxPaymentFailedEventSchema>;
+export type BasicTxListingTransactionAcceptedEvent = z.infer<
+  typeof basicTxListingTransactionAcceptedEventSchema
+>;
+export type BasicTxListingTransactionRejectedEvent = z.infer<
+  typeof basicTxListingTransactionRejectedEventSchema
+>;
+export type BasicTxPaymentFailedEvent = z.infer<
+  typeof basicTxPaymentFailedEventSchema
+>;
 export type BasicTxPaidEvent = z.infer<typeof basicTxPaidEventSchema>;
-export type BasicTxPaymentRefundedEvent = z.infer<typeof basicTxPaymentRefundedEventSchema>;
-export type BasicTxPaymentReviewFlaggedEvent = z.infer<typeof basicTxPaymentReviewFlaggedEventSchema>;
-export type BasicTxPaymentReviewFinishedEvent = z.infer<typeof basicTxPaymentReviewFinishedEventSchema>;
-export type BasicTxTrackingDetailsSubmissionDeadlineExtendedEvent = z.infer<typeof basicTxTrackingDetailsSubmissionDeadlineExtendedEventSchema>;
+export type BasicTxPaymentRefundedEvent = z.infer<
+  typeof basicTxPaymentRefundedEventSchema
+>;
+export type BasicTxPaymentReviewFlaggedEvent = z.infer<
+  typeof basicTxPaymentReviewFlaggedEventSchema
+>;
+export type BasicTxPaymentReviewFinishedEvent = z.infer<
+  typeof basicTxPaymentReviewFinishedEventSchema
+>;
+export type BasicTxTrackingDetailsSubmissionDeadlineExtendedEvent = z.infer<
+  typeof basicTxTrackingDetailsSubmissionDeadlineExtendedEventSchema
+>;
 export type BasicTxTrackedEvent = z.infer<typeof basicTxTrackedEventSchema>;
 export type BasicTxDeliveredEvent = z.infer<typeof basicTxDeliveredEventSchema>;
-export type BasicTxComplainedEvent = z.infer<typeof basicTxComplainedEventSchema>;
-export type BasicTxComplaintPeriodEndedEvent = z.infer<typeof basicTxComplaintPeriodEndedEventSchema>;
-export type BasicTxFundsReleasedEvent = z.infer<typeof basicTxFundsReleasedEventSchema>;
-export type BasicTxFundsRefundedEvent = z.infer<typeof basicTxFundsRefundedEventSchema>;
+export type BasicTxComplainedEvent = z.infer<
+  typeof basicTxComplainedEventSchema
+>;
+export type BasicTxComplaintPeriodEndedEvent = z.infer<
+  typeof basicTxComplaintPeriodEndedEventSchema
+>;
+export type BasicTxFundsReleasedEvent = z.infer<
+  typeof basicTxFundsReleasedEventSchema
+>;
+export type BasicTxFundsRefundedEvent = z.infer<
+  typeof basicTxFundsRefundedEventSchema
+>;

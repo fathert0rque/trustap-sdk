@@ -1,22 +1,20 @@
 {
-  "extends": "@rwp/tsconfig/internal-package.json",
   "compilerOptions": {
-    "lib": [
-      "ES2022",
-      "dom",
-      "dom.iterable"
-    ],
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "moduleResolution": "Bundler",
+    "declaration": true,
+    "outDir": "dist",
     "rootDir": ".",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
     "allowImportingTsExtensions": true,
-    "allowJs": true,
-    "checkJs": false
+    "rewriteRelativeImportExtensions": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true
   },
-  "include": [
-    "src",
-    "scripts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["*.ts"]
 }
