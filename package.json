@@ -1,35 +1,40 @@
 {
   "name": "trustap-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Trustap API SDK (OpenAPI)",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./webhooks": {
+      "types": "./dist/webhooks/index.d.ts",
+      "import": "./dist/webhooks/index.js"
+    },
+    "./types": {
+      "types": "./dist/generated/types.d.ts",
+      "import": "./dist/generated/types.js"
+    },
     "./mod.ts": "./mod.ts"
   },
   "files": [
     "dist",
-    "mod.ts",
-    "index.ts",
-    "client.ts",
-    "webhook-schemas.ts",
-    "state-machine.ts",
-    "types.ts"
+    "mod.ts"
   ],
   "scripts": {
+    "generate": "openapi-typescript openapi.yaml -o src/generated/types.ts",
     "build": "tsc -p tsconfig.json",
-    "generate": "openapi-typescript openapi.yaml -o types.ts",
-    "check": "npm run generate && npm run build"
+    "prepublishOnly": "npm run generate && npm run build",
+    "fetch-spec": "curl -o openapi.yaml https://docs.trustap.com/apis/trustap-openapi.yaml",
+    "sync": "npm run fetch-spec && npm run generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "sideEffects": false,
   "dependencies": {
     "openapi-fetch": "^0.15.0",
     "zod": "^4.3.6"

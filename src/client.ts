@@ -5,7 +5,7 @@ import createClient, {
   type ClientOptions,
   type PathBasedClient,
 } from "openapi-fetch";
-import type { paths } from "./types.ts";
+import type { paths } from "./generated/types.ts";
 
 export const TRUSTAP_BASE_URLS = {
   staging: "https://dev.stage.trustap.com/api/v1",

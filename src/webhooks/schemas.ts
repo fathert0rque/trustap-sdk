@@ -6,7 +6,7 @@
  */
 
 import { z } from "zod/v4";
-import type { TrustapWebhookEventCode } from "./state-machine.ts";
+import type { TrustapWebhookEventCode } from "./state.ts";
 
 // ============================================================================
 // Shared Sub-Schemas
