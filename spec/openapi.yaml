@@ -97,7 +97,7 @@ info:
   title: Trustap API
   version: 0.1.0
 paths:
-  /batch/transactions:
+  /api/v1/batch/transactions:
     get:
       description: >
         This endpoint takes a required `ids` parameter that contains a
@@ -155,10 +155,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - OAuth2: []
       summary: Get multiple online transactions by their IDs
       tags:
         - Online Transactions
-  /charge:
+  /api/v1/charge:
     get:
       description: |
         This returns the Trustap fee, in the `currency`'s smallest unit,
@@ -251,13 +253,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      security:
-        - OAuth2: []
-        - APIKey: []
       summary: Get the Trustap fee for an online transaction
       tags:
         - Online Payment
-  /client/supported_registration_countries:
+  /api/v1/client/supported_registration_countries:
     get:
       operationId: client.getSupportedRegistrationCountries
       responses:
@@ -269,10 +268,12 @@ paths:
                 items:
                   type: string
                 type: array
+      security:
+        - APIKey: []
       summary: Get supported registration countries for the current client
       tags:
         - Clients
-  /clients/{client_id}/timelines:
+  /api/v1/clients/{client_id}/timelines:
     get:
       operationId: basic_client.getTimelinesForClient
       parameters:
@@ -293,7 +294,7 @@ paths:
       summary: Get timelines for the given client
       tags:
         - Clients
-  /guest_users:
+  /api/v1/guest_users:
     post:
       description: >
         This endpoint creates guest user which can be used as the buyer or the
@@ -364,10 +365,12 @@ paths:
                 * `invalid_country_code`
                 * `invalid_email`
                 * `invalid_tos_acceptance_date`
+      security:
+        - APIKey: []
       summary: Create a new guest user
       tags:
         - Buyers and Sellers
-  /me/account_session:
+  /api/v1/me/account_session:
     get:
       operationId: personal.getAccountSession
       responses:
@@ -387,9 +390,18 @@ paths:
       summary: Create an account session and retrieve the client secret for it
       tags:
         - Personal
-  /me/balances:
+  /api/v1/me/balances:
     get:
       operationId: users.getBalances
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -406,7 +418,7 @@ paths:
       summary: Get the balance for the current user in each currency
       tags:
         - Buyers and Sellers
-  /me/debit_account:
+  /api/v1/me/debit_account:
     get:
       operationId: personal.getDebitAccount
       responses:
@@ -416,11 +428,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personal.DebitAccount'
+      security:
+        - OAuth2: []
       summary: Get debit account details
       tags:
         - Personal
     post:
       operationId: personal.setDebitAccount
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -466,9 +489,18 @@ paths:
       summary: Set debit account details
       tags:
         - Personal
-  /me/features:
+  /api/v1/me/features:
     get:
       operationId: users.getUserFeatures
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -482,12 +514,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Get the status enabled/disabled of user's features
       tags:
         - Buyers and Sellers
-  /me/features/instant_payouts:
+  /api/v1/me/features/instant_payouts:
     post:
       operationId: users.setInstantPayouts
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -512,10 +555,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Allow users to turn instant payouts feature on/off
       tags:
         - Buyers and Sellers
-  /me/instant_payout_balance:
+  /api/v1/me/instant_payout_balance:
     get:
       operationId: personal.getInstantPayoutBalance
       responses:
@@ -525,10 +570,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personal.InstantPayoutBalance'
+      security:
+        - OAuth2: []
       summary: Get instant payout balance
       tags:
         - Personal
-  /me/notifications:
+  /api/v1/me/notifications:
     get:
       operationId: app_notifs.getNotifications
       parameters:
@@ -582,10 +629,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - OAuth2: []
       summary: Get the notifications for the logged-in user
       tags:
         - Notifications
-  /me/payout_attempts:
+  /api/v1/me/payout_attempts:
     get:
       description: |
         Payout attempts are returned in reverse chronological order -
@@ -601,10 +650,36 @@ paths:
                 items:
                   $ref: '#/components/schemas/personal.PayoutAttempt'
                 type: array
+      security:
+        - OAuth2: []
       summary: Get the payout attempts that have occurred for this account
       tags:
         - Personal
-  /me/personal/additional_identity_document/verification_status:
+  /api/v1/me/payouts:
+    get:
+      operationId: users.getPayouts
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/users.Payouts'
+      security:
+        - APIKey: []
+      summary: Get the list of payouts for the current user in each currency
+      tags:
+        - Buyers and Sellers
+  /api/v1/me/personal/additional_identity_document/verification_status:
     get:
       operationId: getAdditionalIdentityDocumentVerificationStatus
       responses:
@@ -619,7 +694,7 @@ paths:
         document
       tags:
         - Personal
-  /me/personal/additional_identity_document_back/verification_status:
+  /api/v1/me/personal/additional_identity_document_back/verification_status:
     get:
       operationId: getAdditionalIdentityDocumentBackVerificationStatus
       responses:
@@ -634,7 +709,7 @@ paths:
         document
       tags:
         - Personal
-  /me/personal/details:
+  /api/v1/me/personal/details:
     get:
       operationId: personal.getDetails
       responses:
@@ -644,6 +719,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personal.Details'
+      security:
+        - OAuth2: []
       summary: Get personal details for the local user
       tags:
         - Personal
@@ -713,10 +790,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personal.Details'
+      security:
+        - OAuth2: []
       summary: Set personal details for the local user
       tags:
         - Personal
-  /me/personal/identity_document/verification_status:
+  /api/v1/me/personal/identity_document/verification_status:
     get:
       operationId: getIdentityDocumentVerificationStatus
       responses:
@@ -726,12 +805,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DocumentVerification'
+      security:
+        - OAuth2: []
       summary: >-
         Get the verification status for the front side of the primary identity
         document
       tags:
         - Personal
-  /me/personal/identity_document_back/verification_status:
+  /api/v1/me/personal/identity_document_back/verification_status:
     get:
       operationId: getIdentityDocumentBackVerificationStatus
       responses:
@@ -746,7 +827,7 @@ paths:
         document
       tags:
         - Personal
-  /me/personal/stripe_publishable_key:
+  /api/v1/me/personal/stripe_publishable_key:
     get:
       description: |
         Returns the Publishable Key for the Stripe Platform
@@ -764,11 +845,13 @@ paths:
                   publishable_key:
                     type: string
                 type: object
+      security:
+        - OAuth2: []
       summary: |
         Get the details for the Stripe publishable key the user is linked to
       tags:
         - Personal
-  /me/profile/payout_status:
+  /api/v1/me/profile/payout_status:
     get:
       description: >
         This endpoint requires
@@ -801,12 +884,11 @@ paths:
                 $ref: '#/components/schemas/ProfilePayoutStatus'
       security:
         - APIKey: []
-        - OAuth2: []
       summary: |
         Get the status of a user's ability to accept payouts
       tags:
         - Personal
-  /me/stripe_financial_connections/add_account:
+  /api/v1/me/stripe_financial_connections/add_account:
     post:
       operationId: personal.addStripeFinancialConnectionsAccount
       requestBody:
@@ -827,10 +909,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personal.DebitAccount'
+      security:
+        - OAuth2: []
       summary: Add a new payout method to the current account using a payment method ID
       tags:
         - Personal
-  /me/stripe_financial_connections/ownership:
+  /api/v1/me/stripe_financial_connections/ownership:
     get:
       operationId: personal.getStripeFinancialConnectionsOwnership
       parameters:
@@ -868,12 +952,14 @@ paths:
 
               * `unconfirmed_setup_intent`: The given SetupIntent has not
                 been confirmed
+      security:
+        - OAuth2: []
       summary: >-
         Get the ownership details from the given SetupIntent using Stripe
         Financial Connections
       tags:
         - Personal
-  /me/stripe_financial_connections/prepare_account:
+  /api/v1/me/stripe_financial_connections/prepare_account:
     post:
       operationId: personal.prepareStripeFinancialConnectionsAccount
       responses:
@@ -891,12 +977,14 @@ paths:
                   - setup_intent_id
                   - setup_intent_client_secret
                 type: object
+      security:
+        - OAuth2: []
       summary: |
         Get a SetupIntent ID and secret for starting a Stripe Financial
         Connections session
       tags:
         - Personal
-  /me/transactions:
+  /api/v1/me/transactions:
     get:
       description: |
         Transactions are currently sorted by ID.
@@ -938,24 +1026,34 @@ paths:
               schema:
                 example:
                   - charge: 78
+                    charge_buyer_client: 0
                     charge_seller: 0
+                    charge_seller_client: 0
+                    client_id: trustap-app
                     created: '2019-12-25T09:00:00Z'
                     currency: eur
                     description: Soccer ticket
                     id: 1309
+                    is_payment_in_progress: false
                     join_code: 54c5bb89-a5ea-4be7-ad7a-e740c2eebab4
                     price: 1234
+                    quantity: 1
                     seller_id: ad5bb99f-85bf-47e1-be0d-15e7541c6ad7
                     status: created
                   - buyer_id: ad5bb99f-85bf-47e1-be0d-15e7541c6ad7
                     charge: 78
+                    charge_buyer_client: 0
                     charge_seller: 0
+                    charge_seller_client: 0
+                    client_id: trustap-app
                     created: '2018-12-25T09:00:00Z'
                     currency: eur
                     description: Soccer ticket
                     id: 609
+                    is_payment_in_progress: false
                     join_code: c9cd6a9d-1096-4d38-b4aa-2c354beac845
                     price: 1234
+                    quantity: 1
                     status: created
                 items:
                   $ref: '#/components/schemas/basic.Transaction'
@@ -973,6 +1071,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - OAuth2: []
       summary: Get online transactions for the logged-in user
       tags:
         - Online Transactions
@@ -981,24 +1081,27 @@ paths:
         A request to this endpoint must be preceded by a call to
         `/charge` with the price of the goods specified in `price`.
       operationId: basic.createTransaction
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
               example:
                 charge: 78
+                charge_calculator_version: 5
                 charge_seller: 0
-                client_id: test-auth
-                created: '2025-08-28T11:47:44.134539654Z'
                 currency: eur
                 description: Little Fish
-                id: 1
-                is_payment_in_progress: false
-                join_code: 02e591b3-e80d-4ed8-927e-743df1a0cc22
                 price: 1234
-                quantity: 1
-                seller_id: 45e2537a-a9f4-4b4e-9f90-3761cfd4f35b
-                status: created
+                role: seller
               properties:
                 charge:
                   description: |
@@ -1091,7 +1194,7 @@ paths:
       summary: Create a new online transaction
       tags:
         - Online Transactions
-  /me/transactions/create_and_join:
+  /api/v1/me/transactions/create_and_join:
     post:
       description: |
         This endpoint is an optimised call that allows a transaction to
@@ -1100,6 +1203,15 @@ paths:
         `basic_tx:offline_create_join` scope to the client that is
         performing the request.
       operationId: basic.createAndJoinTransaction
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1114,7 +1226,6 @@ paths:
                 join_user_id: feb33a87-3917-4538-9260-127c8a6b5232
                 payment_method: bank_transfer
                 price: 1234
-                role: seller
               properties:
                 charge:
                   description: |
@@ -1228,7 +1339,7 @@ paths:
       summary: Create a new online transaction with both users
       tags:
         - Online Transactions
-  /me/transactions/create_with_guest_user:
+  /api/v1/me/transactions/create_with_guest_user:
     post:
       description: >
         This endpoint is an optimised call that allows a transaction to
@@ -1244,22 +1355,31 @@ paths:
         as guest or full users, or one party to be guest user and the other full
         user.
       operationId: basic.createTransactionWithGuestUser
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
               example:
-                - buyer_id: 1-bd5bb99j-95bf-87e2-ce0d-95e7541c6ad5
-                  charge: 78
-                  charge_calculator_version: 5
-                  charge_config: 1
-                  charge_seller: 0
-                  creator_role: seller
-                  currency: eur
-                  description: Soccer ticket
-                  payment_method: bank_transfer
-                  price: 1234
-                  seller_id: ad5bb99f-85bf-47e1-be0d-15e7541c6ad7
+                buyer_id: 1-bd5bb99j-95bf-87e2-ce0d-95e7541c6ad5
+                charge: 78
+                charge_calculator_version: 5
+                charge_config: 1
+                charge_seller: 0
+                creator_role: seller
+                currency: eur
+                description: Soccer ticket
+                payment_method: bank_transfer
+                price: 1234
+                seller_id: ad5bb99f-85bf-47e1-be0d-15e7541c6ad7
               properties:
                 buyer_id:
                   description: |
@@ -1386,10 +1506,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Create a new online transaction with both users
       tags:
         - Online Transactions
-  /me/verification_method:
+  /api/v1/me/verification_method:
     get:
       operationId: personal.getVerificationMethod
       responses:
@@ -1418,11 +1540,13 @@ paths:
 
               * `user_is_company`: Verification sessions aren't yet supported
                 for users with a `business_type` of `company`.
+      security:
+        - OAuth2: []
       summary: |
         Create verification method and message if not available
       tags:
         - Personal
-  /me/verification_session:
+  /api/v1/me/verification_session:
     get:
       description: >-
         Offline access is allowed for this endpoint when the user has granted
@@ -1462,7 +1586,7 @@ paths:
         Create verification session and retrieve client secret for it
       tags:
         - Personal
-  /me/verification_session_native:
+  /api/v1/me/verification_session_native:
     get:
       description: >
         Creates verification session for native apps that use Stripe native
@@ -1506,10 +1630,12 @@ paths:
 
               * `user_is_company`: Verification sessions aren't yet supported
                 for users with a `business_type` of `company`.
+      security:
+        - OAuth2: []
       summary: Create verification session for native apps that use Stripe native SDK
       tags:
         - Personal
-  /me/verification_status:
+  /api/v1/me/verification_status:
     get:
       description: >-
         Offline access is allowed for this endpoint when the user has granted
@@ -1535,11 +1661,13 @@ paths:
                   - verification_session_id
                   - verification_session_status
                 type: object
+      security:
+        - OAuth2: []
       summary: |
         Get verification status of the user
       tags:
         - Personal
-  /notifications/{notification_id}:
+  /api/v1/notifications/{notification_id}:
     get:
       operationId: app_notifs.getNotification
       parameters:
@@ -1558,10 +1686,12 @@ paths:
                 $ref: '#/components/schemas/app_notifs.Notification'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Get a notification by its ID
       tags:
         - Notifications
-  /notifications/{notification_id}/mark_as_read:
+  /api/v1/notifications/{notification_id}/mark_as_read:
     post:
       operationId: app_notifs.markNotificationAsRead
       parameters:
@@ -1580,10 +1710,12 @@ paths:
                 $ref: '#/components/schemas/app_notifs.Notification'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Mark this notification as read
       tags:
         - Notifications
-  /p2p/batch/transactions:
+  /api/v1/p2p/batch/transactions:
     get:
       description: >
         This endpoint takes a required `ids` parameter that contains a
@@ -1645,7 +1777,7 @@ paths:
       summary: Get multiple face-to-face transactions by their IDs
       tags:
         - F2F Transactions
-  /p2p/charge:
+  /api/v1/p2p/charge:
     get:
       description: |
         This returns the Trustap fee, in the `currency`'s smallest unit,
@@ -1671,6 +1803,18 @@ paths:
           in: query
           name: price
           required: true
+          schema:
+            type: integer
+            format: int64
+        - description: |
+            Represents an additional charge to be paid by the buyer added 
+            to the transaction total. Use this field to include costs like 
+            processing fees, local taxes, or shipping surcharges. 
+            Must be an integer provided in the smallest unit of the currency 
+            (for example, 500 for $5.00 USD). Defaults to 0 if not provided.
+          in: query
+          name: price_extra
+          required: false
           schema:
             type: integer
             format: int64
@@ -1739,13 +1883,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      security:
-        - OAuth2: []
-        - APIKey: []
       summary: Get the Trustap fee for a face-to-face transaction
       tags:
         - F2F Payment
-  /p2p/clients/{client_id}/timelines:
+  /api/v1/p2p/clients/{client_id}/timelines:
     get:
       operationId: p2p_client.getTimelinesForClient
       parameters:
@@ -1766,9 +1907,9 @@ paths:
       summary: Get timelines for the given client
       tags:
         - Clients
-  /p2p/listings/create_with_seller:
+  /api/v1/p2p/listings/create_with_seller:
     post:
-      operationId: p2p.createWithSeller
+      operationId: p2p.createListingWithSeller
       requestBody:
         content:
           application/json:
@@ -1849,12 +1990,14 @@ paths:
                 * `invalid_role`: '' is not a valid role
                 * `invalid_image_url`: '' is not a valid image url
                 * `image_url_too_long`
+      security:
+        - APIKey: []
       summary: |
         Creates a transaction with guest seller and returns actions
         page url
       tags:
         - Trustap Lite
-  /p2p/me/transactions:
+  /api/v1/p2p/me/transactions:
     get:
       description: |
         Transactions are currently sorted by ID.
@@ -1900,8 +2043,14 @@ paths:
                     currency: eur
                     deposit_pricing:
                       charge: 118
+                      charge_buyer_client: 0
+                      charge_buyer_service: 118
                       charge_seller: 0
+                      charge_seller_client: 0
+                      charge_seller_service: 0
+                      extra_processing_charge: 0
                       price: 1234
+                      price_extra: 0
                     description: Little Fish
                     id: 156
                     is_deposit_payment_in_progress: false
@@ -1916,8 +2065,14 @@ paths:
                     currency: eur
                     deposit_pricing:
                       charge: 118
+                      charge_buyer_client: 0
+                      charge_buyer_service: 118
                       charge_seller: 0
+                      charge_seller_client: 0
+                      charge_seller_service: 0
+                      extra_processing_charge: 0
                       price: 1234
+                      price_extra: 0
                     description: Little Fish
                     id: 155
                     is_deposit_payment_in_progress: false
@@ -1944,6 +2099,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - OAuth2: []
       summary: Get face-to-face transactions for the logged-in user
       tags:
         - F2F Transactions
@@ -1956,6 +2113,15 @@ paths:
         granted the `p2p_tx:offline_create_join` scope to the client
         that is performing the request.
       operationId: p2p.createTransaction
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1967,6 +2133,7 @@ paths:
                 deposit_charge_config: 1
                 deposit_payment_method: bank_transfer
                 deposit_price: 1234
+                deposit_price_extra: 500
                 description: Soccer ticket
                 role: seller
               properties:
@@ -1976,7 +2143,7 @@ paths:
                 client_id:
                   type: string
                 currency:
-                  $ref: '#/components/schemas/Currency'
+                  $ref: '#/components/schemas/p2p.Currency'
                 deposit_charge:
                   format: int64
                   type: integer
@@ -1995,12 +2162,29 @@ paths:
                 deposit_price:
                   format: int64
                   type: integer
+                deposit_price_extra:
+                  description: >
+                    Represents an additional charge to be paid by the buyer
+                    added 
+
+                    to the transaction total. Use this field to include costs
+                    like 
+
+                    processing fees, local taxes, or shipping surcharges. 
+
+                    Must be an integer provided in the smallest unit of the
+                    currency 
+
+                    (for example, 500 for $5.00 USD). Defaults to 0 if not
+                    provided.
+                  format: int64
+                  type: integer
                 description:
                   description: |
                     A description of the goods being sold.
                   type: string
                 role:
-                  $ref: '#/components/schemas/basic.Role'
+                  $ref: '#/components/schemas/p2p.Role'
                 skip_remainder:
                   description: |
                     If `skip_remainder` is `true` then this
@@ -2043,7 +2227,7 @@ paths:
       summary: Create a new face-to-face transaction
       tags:
         - F2F Transactions
-  /p2p/me/transactions/create_and_join:
+  /api/v1/p2p/me/transactions/create_and_join:
     post:
       description: |
         This endpoint is an optimised call that allows a transaction to
@@ -2056,13 +2240,21 @@ paths:
         but takes `deposit_price` and `deposit_charge` fields instead of
         the `price` and `charge` fields.
       operationId: p2p.createAndJoinTransaction
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
               example:
                 charge_calculator_version: 5
-                client_id: test-auth
                 creator_role: seller
                 currency: eur
                 deposit_charge: 118
@@ -2070,6 +2262,7 @@ paths:
                 deposit_charge_seller: 0
                 deposit_payment_method: bank_transfer
                 deposit_price: 1234
+                deposit_price_extra: 500
                 description: Little Fish
                 join_user_id: 2-8ab12191-7508-4efe-b65e-51d1bc440ed9
               properties:
@@ -2079,7 +2272,7 @@ paths:
                 creator_role:
                   $ref: '#/components/schemas/p2p.Role'
                 currency:
-                  $ref: '#/components/schemas/Currency'
+                  $ref: '#/components/schemas/p2p.Currency'
                 deposit_charge:
                   format: int64
                   type: integer
@@ -2108,6 +2301,23 @@ paths:
                     The payment method to use for the transaction.
                   type: string
                 deposit_price:
+                  format: int64
+                  type: integer
+                deposit_price_extra:
+                  description: >
+                    Represents an additional charge to be paid by the buyer
+                    added 
+
+                    to the transaction total. Use this field to include costs
+                    like 
+
+                    processing fees, local taxes, or shipping surcharges. 
+
+                    Must be an integer provided in the smallest unit of the
+                    currency 
+
+                    (for example, 500 for $5.00 USD). Defaults to 0 if not
+                    provided.
                   format: int64
                   type: integer
                 description:
@@ -2172,7 +2382,7 @@ paths:
       summary: Create a new face-to-face transaction with both users
       tags:
         - F2F Transactions
-  /p2p/me/transactions/create_with_guest_user:
+  /api/v1/p2p/me/transactions/create_with_guest_user:
     post:
       description: |
         This endpoint is an optimised call that allows a transaction to
@@ -2182,6 +2392,15 @@ paths:
         This endpoint allows creating a transaction with both buyer and seller
         as guest users, or one party to be guest user and the other full user.
       operationId: p2p.createTransactionWithGuestUser
+      parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -2196,6 +2415,7 @@ paths:
                 deposit_charge_seller: 0
                 deposit_payment_method: bank_transfer
                 deposit_price: 1234
+                deposit_price_extra: 500
                 description: Little Fish
                 seller_id: 1-f40b6944-3c54-405e-9ae3-3fa9d2be9f91
                 skip_remainder: true
@@ -2240,6 +2460,23 @@ paths:
                     The payment method to use for the transaction.
                   type: string
                 deposit_price:
+                  format: int64
+                  type: integer
+                deposit_price_extra:
+                  description: >
+                    Represents an additional charge to be paid by the buyer
+                    added 
+
+                    to the transaction total. Use this field to include costs
+                    like 
+
+                    processing fees, local taxes, or shipping surcharges. 
+
+                    Must be an integer provided in the smallest unit of the
+                    currency 
+
+                    (for example, 500 for $5.00 USD). Defaults to 0 if not
+                    provided.
                   format: int64
                   type: integer
                 description:
@@ -2310,13 +2547,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Create a new face-to-face transaction with both users
       tags:
         - F2F Transactions
-  /p2p/transactions/{transaction_id}:
+  /api/v1/p2p/transactions/{transaction_id}:
     get:
       operationId: p2p.getTransaction
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2336,6 +2583,14 @@ paths:
     patch:
       operationId: updateF2fTransaction
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2350,6 +2605,7 @@ paths:
                 currency: eur
                 deposit_charge: 78
                 deposit_price: 1234
+                deposit_price_extra: 500
                 description: Soccer ticket
               properties:
                 currency:
@@ -2358,6 +2614,9 @@ paths:
                   format: int64
                   type: integer
                 deposit_price:
+                  format: int64
+                  type: integer
+                deposit_price_extra:
                   format: int64
                   type: integer
                 description:
@@ -2395,10 +2654,18 @@ paths:
         face-to-face transaction
       tags:
         - F2F Payment
-  /p2p/transactions/{transaction_id}/accept_complaint:
+  /api/v1/p2p/transactions/{transaction_id}/accept_complaint:
     post:
       operationId: p2p.acceptComplaint
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2427,7 +2694,7 @@ paths:
       summary: Accept a complaint for this face-to-face transaction
       tags:
         - F2F Complaint
-  /p2p/transactions/{transaction_id}/accept_deposit:
+  /api/v1/p2p/transactions/{transaction_id}/accept_deposit:
     post:
       description: >-
         Offline access is allowed for this endpoint when the user has granted
@@ -2435,6 +2702,14 @@ paths:
         performing the request.
       operationId: p2p.acceptDeposit
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2483,10 +2758,18 @@ paths:
       summary: Accept the deposit for this face-to-face transaction
       tags:
         - F2F Payment
-  /p2p/transactions/{transaction_id}/accept_deposit_with_guest_seller:
+  /api/v1/p2p/transactions/{transaction_id}/accept_deposit_with_guest_seller:
     post:
       operationId: p2p.acceptDepositWithGuestSeller
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2516,13 +2799,23 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Accept the deposit for this face-to-face transaction as a guest seller
       tags:
         - F2F Payment
-  /p2p/transactions/{transaction_id}/bank_transfer_details:
+  /api/v1/p2p/transactions/{transaction_id}/bank_transfer_details:
     get:
       operationId: p2p.getBankTransferDetails
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2541,12 +2834,17 @@ paths:
             Bad Request
             `code` can be one of the following:
               * `payment_method_not_bank_transfer`
+              * `paid_with_balance`
+
+              A transaction with `paid_with_balance` error code means that the buyer's payment was already paid using their Trustap balance, so there are no bank transfer details to provide.
+      security:
+        - APIKey: []
       summary: >
         Get the bank transfer details for a face-to-face transaction which
         payment method is `bank_transfer`
       tags:
         - F2F Payment
-  /p2p/transactions/{transaction_id}/billing_details:
+  /api/v1/p2p/transactions/{transaction_id}/billing_details:
     get:
       operationId: p2p.getBillingDetails
       parameters:
@@ -2565,10 +2863,12 @@ paths:
                 $ref: '#/components/schemas/basic.BillingDetails'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Get billing details from this p2p transaction
       tags:
         - F2F Buyer/Seller Details
-  /p2p/transactions/{transaction_id}/cancel_with_description:
+  /api/v1/p2p/transactions/{transaction_id}/cancel_with_description:
     post:
       description: |
         If a transaction is cancelled after the deposit has been paid
@@ -2629,12 +2929,10 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
-      security:
-        - APIKey: []
       summary: Cancel this face-to-face transaction with a description
       tags:
         - F2F Cancel
-  /p2p/transactions/{transaction_id}/cancel_with_description_with_guest_user:
+  /api/v1/p2p/transactions/{transaction_id}/cancel_with_description_with_guest_user:
     post:
       description: |
         If a transaction is cancelled after the deposit has been paid
@@ -2699,15 +2997,23 @@ paths:
       summary: Cancel this face-to-face transaction with a description with guest user
       tags:
         - F2F Cancel
-  /p2p/transactions/{transaction_id}/claim_for_buyer:
+  /api/v1/p2p/transactions/{transaction_id}/claim_for_buyer:
     post:
       description: >
         This endpoint enables a client to claim a face-to-face transaction on
         behalf of a buyer.
 
         This endpoint is only accessible for a client.
-      operationId: p2p.claimForBuyer
+      operationId: p2p.claimTransactionForBuyer
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2745,10 +3051,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Claim a F2F transaction on behalf of the buyer
       tags:
         - F2F Transactions
-  /p2p/transactions/{transaction_id}/claim_for_seller:
+  /api/v1/p2p/transactions/{transaction_id}/claim_for_seller:
     post:
       description: >
         This endpoint enables a client to claim a face-to-face transaction on
@@ -2757,6 +3065,14 @@ paths:
         This endpoint is only accessible for a client.
       operationId: p2p.claimTransactionForSeller
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2785,10 +3101,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Claim a F2F transaction on behalf of the seller
       tags:
         - F2F Transactions
-  /p2p/transactions/{transaction_id}/complain:
+  /api/v1/p2p/transactions/{transaction_id}/complain:
     post:
       description: >-
         Offline access is allowed for this endpoint when the user has granted
@@ -2796,6 +3114,14 @@ paths:
         request.
       operationId: p2p.submitComplaint
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2823,13 +3149,24 @@ paths:
               * `complaint_period_expired`
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
+        - APIKey: []
       summary: Submit a complaint for this face-to-face transaction
       tags:
         - F2F Complaint
-  /p2p/transactions/{transaction_id}/complain_with_guest_buyer:
+  /api/v1/p2p/transactions/{transaction_id}/complain_with_guest_buyer:
     post:
       operationId: p2p.submitComplaintWithGuestBuyer
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2857,10 +3194,12 @@ paths:
               * `complaint_period_expired`
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Submit a complaint for this face-to-face transaction with a guest buyer
       tags:
         - F2F Complaint
-  /p2p/transactions/{transaction_id}/confirm_handover:
+  /api/v1/p2p/transactions/{transaction_id}/confirm_handover:
     post:
       description: |
         Both parties should confirm the handover for a face-to-face
@@ -2871,6 +3210,14 @@ paths:
         that is performing the request.
       operationId: p2p.confirmHandover
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2896,18 +3243,27 @@ paths:
               * `buyer_handover_already_confirmed`
               * `remainder_payment_in_review`
               * `already_cancelled`
+              * `handover_confirmation_not_supported`
         '404':
           description: Not Found
       summary: Confirm the handover for this face-to-face transaction
       tags:
         - F2F Handover
-  /p2p/transactions/{transaction_id}/confirm_handover_with_guest_user:
+  /api/v1/p2p/transactions/{transaction_id}/confirm_handover_with_guest_user:
     post:
       description: |
         Both parties should confirm the handover for a face-to-face
         transaction. Full users don't have access to this endpoint.
       operationId: p2p.confirmHandoverWithGuestUserForTransaction
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -2931,12 +3287,15 @@ paths:
               * `already_complained`
               * `seller_handover_already_confirmed`
               * `buyer_handover_already_confirmed`
+              * `handover_confirmation_not_supported`
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Confirm the handover for this face-to-face transaction with a guest user
       tags:
         - F2F Handover
-  /p2p/transactions/{transaction_id}/deposit_stripe_client_secret:
+  /api/v1/p2p/transactions/{transaction_id}/deposit_stripe_client_secret:
     get:
       description: >
         This endpoint is used for the asynchronous payment flow using
@@ -2998,10 +3357,18 @@ paths:
         Get the Stripe client secret for this face-to-face transaction
       tags:
         - F2F Payment
-  /p2p/transactions/{transaction_id}/end_complaint_period_with_guest_buyer:
+  /api/v1/p2p/transactions/{transaction_id}/end_complaint_period_with_guest_buyer:
     post:
       operationId: p2p.endComplaintPeriodWithGuestBuyer
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -3027,15 +3394,25 @@ paths:
               * `funds_already_released`
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: >-
         End the complaint period for this face-to-face transaction with a guest
         buyer
       tags:
         - F2F Complaint
-  /p2p/transactions/{transaction_id}/join_with_guest:
+  /api/v1/p2p/transactions/{transaction_id}/join_with_guest:
     post:
       operationId: p2p.joinWithGuest
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: transaction_id
           required: true
@@ -3063,10 +3440,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Join the face-to-face transaction as guest user
       tags:
         - F2F Transactions
-  /p2p/transactions/{transaction_id}/metadata:
+  /api/v1/p2p/transactions/{transaction_id}/metadata:
     get:
       operationId: p2p.getTransactionMetadata
       parameters:
@@ -3086,6 +3465,8 @@ paths:
                 type: object
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Get metadata for a face-to-face transaction
       tags:
         - F2F Transactions
@@ -3127,74 +3508,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - OAuth2: []
       summary: Set metadata for a face-to-face transaction
       tags:
         - F2F Transactions
-  /p2p/transactions/{transaction_id}/remainder_stripe_client_secret:
-    get:
-      description: >
-        This endpoint is used for the asynchronous payment flow using
-
-        Stripe. The `client_secret` returned from this endpoint should
-
-        be passed to
-
-        [stripe.confirmCardPayment](https://stripe.com/docs/stripe-js/reference#stripe-confirm-card-payment)
-
-        to start the payment process.
-      operationId: p2p.getRemainderStripeClientSecretForTransaction
-      parameters:
-        - in: path
-          name: transaction_id
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                example:
-                  client_secret: '***'
-                properties:
-                  client_secret:
-                    type: string
-                required:
-                  - client_secret
-                type: object
-        '400':
-          description: |
-            Bad Request
-
-            `code` can be one of the following:
-
-              * `missing_pricing`: Pricing details have not yet been
-                added to this transaction.
-              * `no_client_secret`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '403':
-          description: |
-            Forbidden
-
-            `code` can be one of the following:
-
-              * `not_buyer`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found
-      summary: |
-        Get the Stripe client secret for this face-to-face transaction
-      tags:
-        - F2F Buyer/Seller Details
-  /p2p/transactions/{transaction_id}/set_deposit_payment_method:
+  /api/v1/p2p/transactions/{transaction_id}/set_deposit_payment_method:
     post:
       description: >
         Set deposit payment method for face-to-face transaction. Values can be
@@ -3246,7 +3565,7 @@ paths:
       summary: Set deposit payment method for this face-to-face transaction
       tags:
         - F2F Payment
-  /p2p/transactions/{transaction_id}/stripe_publishable_key:
+  /api/v1/p2p/transactions/{transaction_id}/stripe_publishable_key:
     get:
       description: |
         Returns the Publishable Key for the Stripe Platform
@@ -3298,12 +3617,14 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: >
         Get the details for the Stripe publishable key that is in use for this
         face-to-face transaction
       tags:
         - F2F Buyer/Seller Details
-  /p2p/transactions/{transactionId}/buyer_details:
+  /api/v1/p2p/transactions/{transactionId}/buyer_details:
     get:
       operationId: getBuyerDetailsFromP2PTransaction
       parameters:
@@ -3322,10 +3643,12 @@ paths:
                 $ref: '#/components/schemas/UserDetails'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Get the details of the buyer from this face-to-face transaction
       tags:
         - F2F Buyer/Seller Details
-  /p2p/transactions/{transactionId}/seller_details:
+  /api/v1/p2p/transactions/{transactionId}/seller_details:
     get:
       operationId: getSellerDetailsFromP2PTransaction
       parameters:
@@ -3347,7 +3670,7 @@ paths:
       summary: Get the details of the seller from this face-to-face transaction
       tags:
         - F2F Buyer/Seller Details
-  /p2p/transactions/{transactionId}/set_price:
+  /api/v1/p2p/transactions/{transactionId}/set_price:
     post:
       description: |
         `price` is the total price of the item, and thus includes the
@@ -3446,7 +3769,7 @@ paths:
       summary: Set the total price for this face-to-face transaction
       tags:
         - F2F Payment
-  /p2p/transactions/{transactionId}/skip_remainder:
+  /api/v1/p2p/transactions/{transactionId}/skip_remainder:
     post:
       description: |
         This will skip the remainder payment of this transaction, and
@@ -3495,7 +3818,7 @@ paths:
       summary: Skip the remainder for this face-to-face transaction
       tags:
         - F2F Payment
-  /p2p/transactions_by_claim_secret/{secret}/claim_as_buyer:
+  /api/v1/p2p/transactions_by_claim_secret/{secret}/claim_as_buyer:
     post:
       description: |
         This endpoint allows a full user to claim a transaction
@@ -3529,7 +3852,7 @@ paths:
       summary: Claim F2F transaction as buyer given a claim secret
       tags:
         - F2F Transactions
-  /p2p/transactions_by_claim_secret/{secret}/claim_as_seller:
+  /api/v1/p2p/transactions_by_claim_secret/{secret}/claim_as_seller:
     post:
       description: |
         This endpoint allows a full user to claim a transaction
@@ -3564,10 +3887,35 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Claim a F2F transaction as the seller
       tags:
         - F2F Transactions
-  /p2p/transactions_by_join_code/{join_code}/join:
+  /api/v1/p2p/transactions_by_join_code/{join_code}:
+    get:
+      operationId: p2p.getTransactionByJoinCode
+      parameters:
+        - in: path
+          name: join_code
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/p2p.Transaction'
+        '404':
+          description: Not Found
+      security:
+        - APIKey: []
+      summary: Get a face-to-face transaction by its join code
+      tags:
+        - F2F Transactions
+  /api/v1/p2p/transactions_by_join_code/{join_code}/join:
     post:
       description: >-
         This endpoint allows a user to join a transaction provided a join code.
@@ -3576,6 +3924,14 @@ paths:
         the request.
       operationId: p2p.joinTransactionByJoinCode
       parameters:
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: path
           name: join_code
           required: true
@@ -3609,28 +3965,7 @@ paths:
       summary: Join a face-to-face transaction by its join code
       tags:
         - F2F Transactions
-  /p2p/transactions_by_join_code/{joinCode}:
-    get:
-      operationId: getP2PTransactionByJoinCode
-      parameters:
-        - in: path
-          name: joinCode
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/p2p.Transaction'
-        '404':
-          description: Not Found
-      summary: Get a face-to-face transaction by its join code
-      tags:
-        - F2F Transactions
-  /shippo_shipping_rates:
+  /api/v1/shippo_shipping_rates:
     post:
       description: |
         This returns the list of Shippo shipping rates available
@@ -3673,6 +4008,7 @@ paths:
                 sender_phone: '123456789'
                 sender_state: Victoria
                 sender_street_1: 21-27 Marshall Court
+                sender_zip_code: '44685'
               properties:
                 currency:
                   type: string
@@ -3794,13 +4130,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      security:
-        - OAuth2: []
-        - APIKey: []
       summary: Get the list of Shippo shipping rates available
       tags:
         - Online Shipping
-  /supported_carriers:
+  /api/v1/supported_carriers:
     get:
       description: |
         This returns the carriers that are currently supported for
@@ -3831,12 +4164,11 @@ paths:
                   $ref: '#/components/schemas/Carrier'
                 type: array
       security:
-        - OAuth2: []
         - APIKey: []
       summary: Get the supported carriers
       tags:
         - Online Shipping
-  /transactions:
+  /api/v1/transactions:
     get:
       operationId: basic.getTransactionByJoinCode
       parameters:
@@ -3880,6 +4212,14 @@ paths:
           required: true
           schema:
             type: string
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -3900,10 +4240,13 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
+        - APIKey: []
       summary: Join an online transaction using a join code
       tags:
         - Online Transactions
-  /transactions/{transaction_id}:
+  /api/v1/transactions/{transaction_id}:
     get:
       operationId: basic.getTransaction
       parameters:
@@ -4008,12 +4351,14 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: >-
         Update the description, currency, price and/or charge of an online
         transaction
       tags:
         - Online Payment
-  /transactions/{transaction_id}/accept_complaint:
+  /api/v1/transactions/{transaction_id}/accept_complaint:
     post:
       operationId: basic.acceptComplaint
       parameters:
@@ -4059,7 +4404,7 @@ paths:
       summary: Accept complaint for this online transaction
       tags:
         - Online Complaint
-  /transactions/{transaction_id}/accept_payment:
+  /api/v1/transactions/{transaction_id}/accept_payment:
     post:
       description: >
         This endpoint lets the seller accept payment and is accessible only if
@@ -4080,6 +4425,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -4102,10 +4455,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Enable the seller to accept payment for an online transaction
       tags:
         - Online Payment
-  /transactions/{transaction_id}/accept_payment_with_guest_seller:
+  /api/v1/transactions/{transaction_id}/accept_payment_with_guest_seller:
     post:
       description: |
         This endpoint allows payment acceptance for the seller specified in the
@@ -4154,7 +4509,7 @@ paths:
         online transaction
       tags:
         - Online Payment
-  /transactions/{transaction_id}/bank_transfer_details:
+  /api/v1/transactions/{transaction_id}/bank_transfer_details:
     get:
       operationId: basic.getBankTransferDetails
       parameters:
@@ -4176,12 +4531,17 @@ paths:
             Bad Request
             `code` can be one of the following:
               * `payment_method_not_bank_transfer`
+              * `paid_with_balance`
+
+              A transaction with `paid_with_balance` error code means that the buyer's payment was already paid using their Trustap balance, so there are no bank transfer details to provide.
+      security:
+        - OAuth2: []
       summary: >
         Get bank transfer details for an online transaction which payment method
         is `bank_transfer`
       tags:
         - Online Payment
-  /transactions/{transaction_id}/billing_details:
+  /api/v1/transactions/{transaction_id}/billing_details:
     get:
       operationId: basic.getBillingDetails
       parameters:
@@ -4200,10 +4560,12 @@ paths:
                 $ref: '#/components/schemas/basic.BillingDetails'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Get billing details from this online transaction
       tags:
         - Online Buyer/Seller Details
-  /transactions/{transaction_id}/buyer_details:
+  /api/v1/transactions/{transaction_id}/buyer_details:
     get:
       operationId: basic.getBuyerDetails
       parameters:
@@ -4222,10 +4584,12 @@ paths:
                 $ref: '#/components/schemas/UserDetails'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Get details of the buyer from this online transaction
       tags:
         - Online Buyer/Seller Details
-  /transactions/{transaction_id}/cancel:
+  /api/v1/transactions/{transaction_id}/cancel:
     post:
       description: |
         Transaction can be cancelled until it's paid or if the feature
@@ -4242,6 +4606,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -4270,7 +4642,7 @@ paths:
       summary: Cancel this online transaction
       tags:
         - Online Cancel
-  /transactions/{transaction_id}/cancel_with_guest_user:
+  /api/v1/transactions/{transaction_id}/cancel_with_guest_user:
     post:
       description: >
         This endpoint cancels a transaction for the user specified in the header
@@ -4322,10 +4694,12 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Cancel this online transaction with a guest user
       tags:
         - Online Cancel
-  /transactions/{transaction_id}/charge:
+  /api/v1/transactions/{transaction_id}/charge:
     get:
       description: |
         This returns the Trustap fee, in the `currency`'s smallest unit,
@@ -4407,11 +4781,10 @@ paths:
                 $ref: '#/components/schemas/Error'
       security:
         - OAuth2: []
-        - APIKey: []
       summary: Get the Trustap fee for an online transaction
       tags:
         - Online Payment
-  /transactions/{transaction_id}/claim_for_buyer:
+  /api/v1/transactions/{transaction_id}/claim_for_buyer:
     post:
       description: >
         This endpoint enables a client to claim an online transaction on behalf
@@ -4426,6 +4799,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -4447,10 +4828,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Claim online transaction on behalf of the buyer
       tags:
         - Online Transactions
-  /transactions/{transaction_id}/claim_for_seller:
+  /api/v1/transactions/{transaction_id}/claim_for_seller:
     post:
       description: >
         This endpoint enables a client to claim an online transaction on behalf
@@ -4465,6 +4848,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -4486,10 +4877,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Claim online transactions on behalf of the seller
       tags:
         - Online Transactions
-  /transactions/{transaction_id}/complain_with_description:
+  /api/v1/transactions/{transaction_id}/complain_with_description:
     post:
       operationId: basic.submitComplaintWithDescription
       parameters:
@@ -4540,10 +4933,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Submit a detailed complaint for this online transaction
       tags:
         - Online Complaint
-  /transactions/{transaction_id}/complain_with_guest_buyer:
+  /api/v1/transactions/{transaction_id}/complain_with_guest_buyer:
     post:
       operationId: basic.submitComplaintWithGuestBuyer
       parameters:
@@ -4602,12 +4997,14 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: >-
         Submit a detailed complaint for this online transaction for the guest
         buyer using `Trustap-User`
       tags:
         - Online Complaint
-  /transactions/{transaction_id}/confirm_delivery:
+  /api/v1/transactions/{transaction_id}/confirm_delivery:
     post:
       description: |
         This endpoint allows the buyer to manually confirm the delivery of the
@@ -4654,10 +5051,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Confirm delivery for this online transaction
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/confirm_delivery_with_guest_buyer:
+  /api/v1/transactions/{transaction_id}/confirm_delivery_with_guest_buyer:
     post:
       description: |
         This endpoint allows the client to manually confirm the delivery
@@ -4711,10 +5110,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Confirm delivery for this online transaction
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/end_complaint_period:
+  /api/v1/transactions/{transaction_id}/end_complaint_period:
     post:
       operationId: basic.endComplaintPeriod
       parameters:
@@ -4760,10 +5161,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: End the complaint period for this online transaction
       tags:
         - Online Complaint
-  /transactions/{transaction_id}/extend_tracking_deadline:
+  /api/v1/transactions/{transaction_id}/extend_tracking_deadline:
     post:
       description: |
         This endpoint allows the buyer to extend the tracking details
@@ -4806,10 +5209,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Extend tracking details submission deadline for this online transaction
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/generate_shipment_label:
+  /api/v1/transactions/{transaction_id}/generate_shipment_label:
     post:
       description: |
         This endpoint returns a PDF containing the label for the
@@ -4823,6 +5228,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
         - in: query
           name: carrier
           required: true
@@ -4863,7 +5276,7 @@ paths:
       summary: Generate a shipment label for this online transaction's parcel
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/seller_details:
+  /api/v1/transactions/{transaction_id}/seller_details:
     get:
       operationId: basic.getSellerDetails
       parameters:
@@ -4882,10 +5295,12 @@ paths:
                 $ref: '#/components/schemas/UserDetails'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Get details of the seller from this online transaction
       tags:
         - Online Buyer/Seller Details
-  /transactions/{transaction_id}/set_payment_method:
+  /api/v1/transactions/{transaction_id}/set_payment_method:
     post:
       description: |
         Different payment methods incur different rates, so the payment
@@ -4983,11 +5398,13 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: |
         Set the payment method to be used for this online transaction
       tags:
         - Online Payment
-  /transactions/{transaction_id}/shipping_details:
+  /api/v1/transactions/{transaction_id}/shipping_details:
     get:
       operationId: basic.getShippingDetailsFromTransaction
       parameters:
@@ -5029,7 +5446,7 @@ paths:
                 country: us
                 name: John Doe
                 phone: 330-896-9303
-                postal_code: 44685
+                postal_code: '44685'
                 state: Ohio
               properties:
                 address_line_1:
@@ -5072,10 +5489,12 @@ paths:
               * `empty_country`
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Post the shipping details of the buyer from this online transaction
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/shippo_address:
+  /api/v1/transactions/{transaction_id}/shippo_address:
     post:
       operationId: basic.setShippoAddress
       parameters:
@@ -5085,6 +5504,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -5093,10 +5520,11 @@ paths:
                 city: Altona
                 country: au
                 full_name: Ivan Horvat
-                phone: 4215559099
-                postal_code: 10000
+                is_sender_address: true
+                phone: '4215559099'
                 state: Victoria
                 street_1: 21-27 Marshall Court
+                zip_code: '10000'
               properties:
                 city:
                   type: string
@@ -5145,10 +5573,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Set the sender's or recipient's address for Shippo shipment
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/shippo_customs_declaration:
+  /api/v1/transactions/{transaction_id}/shippo_customs_declaration:
     post:
       operationId: basic.setShippoCustomsDeclaration
       parameters:
@@ -5158,6 +5588,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -5172,7 +5610,7 @@ paths:
                 non_delivery_option: return
                 origin_country: US
                 quantity: 20
-                value_amount: 200
+                value_amount: '200'
                 value_currency: USD
               properties:
                 certify:
@@ -5231,10 +5669,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Send a customs declaration for this online transaction's shipment
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/shippo_parcel_details:
+  /api/v1/transactions/{transaction_id}/shippo_parcel_details:
     post:
       operationId: basic.setShippoParcelDetails
       parameters:
@@ -5244,6 +5684,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -5251,8 +5699,9 @@ paths:
               example:
                 distance_unit: cm
                 height: 10
-                lenght: 10
+                length: 10
                 mass_unit: lb
+                shipment_date: '2019-12-25T09:00:00Z'
                 weight: 10
                 width: 10
               properties:
@@ -5265,7 +5714,7 @@ paths:
                   format: double
                   type: number
                 mass_unit:
-                  $ref: '#/components/schemas/basic.DistanceUnit'
+                  $ref: '#/components/schemas/basic.MassUnit'
                 shipment_date:
                   description: |
                     Date the shipment will be tendered to the carrier.
@@ -5304,10 +5753,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Set Shippo parcel details for this online transaction
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/shippo_shipping_label:
+  /api/v1/transactions/{transaction_id}/shippo_shipping_label:
     get:
       operationId: basic.getShippoShippingLabel
       parameters:
@@ -5317,6 +5768,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -5333,10 +5792,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Get Shippo generated label details for this online transaction
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/shippo_shipping_rate:
+  /api/v1/transactions/{transaction_id}/shippo_shipping_rate:
     post:
       description: >
         Set Shippo shipping rate for the transaction.
@@ -5355,6 +5816,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -5382,10 +5851,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: Set Shippo shipping rate for this online transaction
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/shippo_shipping_rates:
+  /api/v1/transactions/{transaction_id}/shippo_shipping_rates:
     get:
       operationId: basic.getShippoShippingRatesForTransaction
       parameters:
@@ -5395,6 +5866,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -5415,12 +5894,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security:
+        - APIKey: []
       summary: >-
         Get Shippo shipping rates based on the sender's and recipient's address
         and parcel details
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/stripe_client_secret:
+  /api/v1/transactions/{transaction_id}/stripe_client_secret:
     get:
       description: >
         This endpoint is used for the asynchronous payment flow using
@@ -5484,7 +5965,7 @@ paths:
         Get the Stripe client secret for this online transaction
       tags:
         - Online Buyer/Seller Details
-  /transactions/{transaction_id}/stripe_publishable_key:
+  /api/v1/transactions/{transaction_id}/stripe_publishable_key:
     get:
       description: |
         Returns the Publishable Key for the Stripe Platform
@@ -5536,12 +6017,14 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: >
         Get the details for the Stripe publishable key that is in use for this
         online transaction
       tags:
         - Online Buyer/Seller Details
-  /transactions/{transaction_id}/submit_order_issue:
+  /api/v1/transactions/{transaction_id}/submit_order_issue:
     post:
       operationId: basic.submitOrderIssue
       parameters:
@@ -5596,10 +6079,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Submit a detailed order issue for this online transaction
       tags:
         - Online Transactions
-  /transactions/{transaction_id}/track:
+  /api/v1/transactions/{transaction_id}/track:
     post:
       description: |
         After the tracking information has been submitted then the state
@@ -5617,6 +6102,14 @@ paths:
           schema:
             type: integer
             format: int64
+        - description: >-
+            Required in client flows, where you make API calls on behalf of
+            another Trustap user.
+          in: header
+          name: Trustap-User
+          required: false
+          schema:
+            type: string
       requestBody:
         $ref: '#/components/requestBodies/basic.trackTransactionTrackTransactionBody'
       responses:
@@ -5659,7 +6152,7 @@ paths:
       summary: Set postal tracking details for this online transaction
       tags:
         - Online Shipping
-  /transactions/{transaction_id}/track_with_guest_seller:
+  /api/v1/transactions/{transaction_id}/track_with_guest_seller:
     post:
       description: |
         Add tracking details for the guest seller specified
@@ -5719,10 +6212,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - APIKey: []
       summary: Set postal tracking details for this online transaction
       tags:
         - Online Shipping
-  /transactions_by_claim_secret/{secret}/claim_as_buyer:
+  /api/v1/transactions_by_claim_secret/{secret}/claim_as_buyer:
     post:
       description: |
         This endpoint allows a full user to claim for a transaction
@@ -5752,10 +6247,12 @@ paths:
               * `missing_secret`
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Claim for an online transaction as buyer given a claim secret
       tags:
         - Online Transactions
-  /transactions_by_claim_secret/{secret}/claim_as_seller:
+  /api/v1/transactions_by_claim_secret/{secret}/claim_as_seller:
     post:
       description: |
         This endpoint allows a full user to claim a transaction
@@ -5790,11 +6287,14 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found
+      security:
+        - OAuth2: []
       summary: Claim an Online transaction as the seller
       tags:
         - Online Transactions
 security:
   - OAuth2: []
+  - APIKey: []
 tags:
   - description: |
       Online transactions are used when the goods are delivered using registered
@@ -5867,6 +6367,7 @@ x-tagGroups:
       - F2F Complaint
       - F2F Cancel
       - F2F Buyer/Seller Details
+      - F2F Shipping
   - name: Trustap lite
     tags:
       - Trustap Lite
@@ -5880,7 +6381,7 @@ x-tagGroups:
       - F2F Multi-use Listings
       - F2F Single-use Listings
 servers:
-  - url: https://dev.stage.trustap.com/api/v1
+  - url: https://dev.stage.trustap.com
 components:
   requestBodies:
     p2p.submitComplaintSubmitComplaintBody:
@@ -5997,14 +6498,6 @@ components:
         - code
         - name
       type: object
-    CarrierName:
-      enum:
-        - fedex
-        - ups
-        - usps
-        - posta_hr
-      example: fedex
-      type: string
     Complaint:
       example:
         description: Item was fake
@@ -6271,34 +6764,15 @@ components:
       required:
         - email
       type: object
-    basic.CarrierFacility:
-      properties:
-        address:
-          type: string
-        city:
-          type: string
-        code:
-          type: string
-        delivery_type:
-          type: string
-        name:
-          type: string
-        postal_code:
-          type: string
-      required:
-        - delivery_type
-        - name
-        - postal_code
-        - address
-        - city
-      type: object
     basic.Charge:
       example:
         charge: 340
+        charge_buyer_client: 0
         charge_calculator_version: 5
         charge_config: 1
         charge_postage_buyer: 1000
         charge_seller: 0
+        charge_seller_client: 0
         currency: eur
         payment_method: card
         price: 10000
@@ -6309,6 +6783,12 @@ components:
             smallest unit, for a queried amount. See [the Stripe
             documentation](https://stripe.com/docs/currencies#zero-decimal)
             for more details.
+          format: int64
+          type: integer
+        charge_buyer_client:
+          description: |
+            The portion of the buyer's fee that is attributed to the client,
+            in the `currency`'s smallest unit.
           format: int64
           type: integer
         charge_calculator_version:
@@ -6357,6 +6837,12 @@ components:
             for more details.
           format: int64
           type: integer
+        charge_seller_client:
+          description: |
+            The portion of the seller's fee that is attributed to the client,
+            in the `currency`'s smallest unit.
+          format: int64
+          type: integer
         currency:
           type: string
         payment_method:
@@ -6368,6 +6854,8 @@ components:
         - currency
         - charge
         - charge_seller
+        - charge_buyer_client
+        - charge_seller_client
         - charge_calculator_version
         - price
       type: object
@@ -6382,43 +6870,6 @@ components:
         tracking_details_allowance_seconds:
           format: int64
           type: integer
-      type: object
-    basic.DeliveryDetails:
-      properties:
-        carrier:
-          type: string
-        city:
-          type: string
-        delivery_center_code:
-          type: string
-        delivery_type:
-          type: string
-        email:
-          type: string
-        full_name:
-          type: string
-        house_number:
-          type: string
-        house_number_suffix:
-          type: string
-        phone:
-          type: string
-        postal_code:
-          type: string
-        street:
-          type: string
-      required:
-        - full_name
-        - phone
-        - email
-        - street
-        - house_number
-        - house_number_suffix
-        - postal_code
-        - city
-        - carrier
-        - delivery_center_code
-        - delivery_type
       type: object
     basic.DistanceUnit:
       enum:
@@ -6466,65 +6917,6 @@ components:
         - kg
       example: kg
       type: string
-    basic.PickUpDetails:
-      properties:
-        carrier:
-          type: string
-        city:
-          type: string
-        delivery_type:
-          type: string
-        email:
-          type: string
-        full_name:
-          type: string
-        house_number:
-          type: string
-        house_number_suffix:
-          type: string
-        phone:
-          type: string
-        pick_up_center_code:
-          type: string
-        postal_code:
-          type: string
-        street:
-          type: string
-      required:
-        - full_name
-        - phone
-        - email
-        - street
-        - house_number
-        - house_number_suffix
-        - postal_code
-        - city
-        - carrier
-        - pick_up_center_code
-        - delivery_type
-      type: object
-    basic.Pricing:
-      example:
-        charge: 78
-        price: 1234
-      properties:
-        charge:
-          format: int64
-          type: integer
-        charge_international_payment:
-          format: int64
-          type: integer
-        charge_seller:
-          format: int64
-          type: integer
-        price:
-          format: int64
-          type: integer
-      required:
-        - price
-        - charge
-        - charge_seller
-      type: object
     basic.Refund:
       properties:
         amount:
@@ -6724,7 +7116,9 @@ components:
       example:
         buyer_id: feb33a87-3917-4538-9260-127c8a6b5232
         charge: 78
+        charge_buyer_client: 0
         charge_seller: 0
+        charge_seller_client: 0
         client_id: trustap-app
         created: '2019-12-25T09:00:00Z'
         currency: eur
@@ -6761,6 +7155,9 @@ components:
         charge:
           format: int64
           type: integer
+        charge_buyer_client:
+          format: int64
+          type: integer
         charge_international_payment:
           format: int64
           type: integer
@@ -6771,6 +7168,9 @@ components:
           format: int64
           type: integer
         charge_seller:
+          format: int64
+          type: integer
+        charge_seller_client:
           format: int64
           type: integer
         claimed_by_buyer:
@@ -6906,36 +7306,13 @@ components:
         - price
         - charge
         - charge_seller
+        - charge_buyer_client
+        - charge_seller_client
         - description
         - quantity
         - created
         - is_payment_in_progress
         - client_id
-      type: object
-    basic.TransactionPage:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/basic.Transaction'
-          type: array
-        page:
-          format: int64
-          type: integer
-        page_size:
-          format: int64
-          type: integer
-        total_count:
-          format: int64
-          type: integer
-        total_pages:
-          format: int64
-          type: integer
-      required:
-        - data
-        - total_count
-        - page
-        - total_pages
-        - page_size
       type: object
     basic.UserDetailsName:
       example:
@@ -6949,33 +7326,6 @@ components:
       required:
         - first
         - last
-      type: object
-    client.ClientCustomization:
-      properties:
-        button_color_hex:
-          type: string
-        client_id:
-          type: string
-        collect_phone_number:
-          type: boolean
-        created:
-          format: date-time
-          type: string
-        favicon_url:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        protection_fee_label:
-          type: string
-        public_name:
-          type: string
-        text_color_hex:
-          type: string
-        updated:
-          format: date-time
-          type: string
       type: object
     p2p.Aba:
       properties:
@@ -7027,12 +7377,15 @@ components:
     p2p.Charge:
       example:
         charge: 78
+        charge_buyer_client: 0
         charge_calculator_version: 5
         charge_config: 1
         charge_seller: 0
+        charge_seller_client: 0
         currency: eur
         payment_method: card
         price: 1234
+        price_extra: 0
       properties:
         charge:
           description: |
@@ -7040,6 +7393,12 @@ components:
             smallest unit, for a queried amount. See [the Stripe
             documentation](https://stripe.com/docs/currencies#zero-decimal)
             for more details.
+          format: int64
+          type: integer
+        charge_buyer_client:
+          description: |
+            The portion of the buyer's fee that is attributed to the client,
+            in the `currency`'s smallest unit.
           format: int64
           type: integer
         charge_calculator_version:
@@ -7076,6 +7435,12 @@ components:
             for more details.
           format: int64
           type: integer
+        charge_seller_client:
+          description: |
+            The portion of the seller's fee that is attributed to the client,
+            in the `currency`'s smallest unit.
+          format: int64
+          type: integer
         currency:
           type: string
         payment_method:
@@ -7083,10 +7448,21 @@ components:
         price:
           format: int64
           type: integer
+        price_extra:
+          description: |
+            Represents an additional charge to be paid by the buyer added 
+            to the transaction total. Use this field to include costs like 
+            processing fees, local taxes, or shipping surcharges. 
+            Must be an integer provided in the smallest unit of the currency 
+            (for example, 500 for $5.00 USD). Defaults to 0 if not provided.
+          format: int64
+          type: integer
       required:
         - currency
         - charge
         - charge_seller
+        - charge_buyer_client
+        - charge_seller_client
         - charge_calculator_version
         - price
       type: object
@@ -7131,6 +7507,7 @@ components:
         deposit_charge: 2000
         deposit_charge_seller: 0
         deposit_price: 200000
+        deposit_price_extra: 500
         payment_method: bank_transfer
       properties:
         charge_config:
@@ -7145,6 +7522,9 @@ components:
           format: int64
           type: integer
         deposit_price:
+          format: int64
+          type: integer
+        deposit_price_extra:
           format: int64
           type: integer
         payment_method:
@@ -7189,12 +7569,34 @@ components:
         - multi_use
       example: single_use
       type: string
+    p2p.OrderIssue:
+      example:
+        description: Item was not delivered
+      properties:
+        description:
+          type: string
+      required:
+        - description
+      type: object
     p2p.Pricing:
       example:
         charge: 78
+        charge_buyer_client: 0
+        charge_buyer_service: 78
+        charge_seller: 0
+        charge_seller_client: 0
+        charge_seller_service: 0
+        extra_processing_charge: 0
         price: 1234
+        price_extra: 0
       properties:
         charge:
+          format: int64
+          type: integer
+        charge_buyer_client:
+          format: int64
+          type: integer
+        charge_buyer_service:
           format: int64
           type: integer
         charge_international_payment:
@@ -7203,15 +7605,33 @@ components:
         charge_seller:
           format: int64
           type: integer
+        charge_seller_client:
+          format: int64
+          type: integer
+        charge_seller_service:
+          format: int64
+          type: integer
         deposit_fee_multiplier:
           $ref: '#/components/schemas/p2p.DepositFeeMultiplier'
+        extra_processing_charge:
+          format: int64
+          type: integer
         price:
+          format: int64
+          type: integer
+        price_extra:
           format: int64
           type: integer
       required:
         - price
+        - price_extra
         - charge
         - charge_seller
+        - charge_buyer_client
+        - charge_seller_client
+        - charge_seller_service
+        - charge_buyer_service
+        - extra_processing_charge
       type: object
     p2p.Refund:
       properties:
@@ -7260,13 +7680,6 @@ components:
         - account_number
         - sort_code
       type: object
-    p2p.StripeToken:
-      properties:
-        stripe_token:
-          type: string
-      required:
-        - stripe_token
-      type: object
     p2p.Swift:
       properties:
         account_number:
@@ -7280,6 +7693,19 @@ components:
         - bank_name
         - swift_code
       type: object
+    p2p.Tracking:
+      example:
+        carrier: ups
+        tracking_code: '***'
+      properties:
+        carrier:
+          type: string
+        tracking_code:
+          type: string
+      required:
+        - carrier
+        - tracking_code
+      type: object
     p2p.Transaction:
       example:
         buyer_handover_confirmed: '2019-12-25T16:00:00Z'
@@ -7291,7 +7717,14 @@ components:
         deposit_paid: '2019-12-25T11:00:00Z'
         deposit_pricing:
           charge: 78
+          charge_buyer_client: 0
+          charge_buyer_service: 78
+          charge_seller: 0
+          charge_seller_client: 0
+          charge_seller_service: 0
+          extra_processing_charge: 0
           price: 1234
+          price_extra: 0
         description: Soccer ticket
         funds_released: '2019-12-25T17:00:00Z'
         id: 1309
@@ -7301,7 +7734,15 @@ components:
         priced: '2019-12-25T13:00:00Z'
         pricing:
           charge: 190
+          charge_buyer_client: 0
+          charge_buyer_service: 190
+          charge_seller: 0
+          charge_seller_client: 0
+          charge_seller_service: 0
+          extra_processing_charge: 0
           price: 5000
+          price_extra: 0
+        quantity: 1
         remainder_paid: '2019-12-25T14:00:00Z'
         seller_handover_confirmed: '2019-12-25T15:00:00Z'
         seller_id: ad5bb99f-85bf-47e1-be0d-15e7541c6ad7
@@ -7309,6 +7750,9 @@ components:
         status: funds_released
       properties:
         amount_refunded:
+          format: int64
+          type: integer
+        amount_released:
           format: int64
           type: integer
         buyer_handover_confirmed:
@@ -7329,6 +7773,9 @@ components:
         claimed_by_seller:
           format: date-time
           type: string
+        client_accrual_net:
+          format: int64
+          type: integer
         client_id:
           type: string
         complained:
@@ -7350,6 +7797,9 @@ components:
             The currency of the transaction. Note that, at present, the
             buyer must pay using the transaction's currency and the
             seller will be paid in the transaction's currency.
+          type: string
+        delivered:
+          format: date-time
           type: string
         deposit_accepted:
           format: date-time
@@ -7412,6 +7862,8 @@ components:
           type: string
         listing_type:
           $ref: '#/components/schemas/p2p.ListingType'
+        order_issue:
+          $ref: '#/components/schemas/p2p.OrderIssue'
         order_issue_raised:
           format: date-time
           type: string
@@ -7463,6 +7915,11 @@ components:
           type: boolean
         status:
           type: string
+        tracked:
+          format: date-time
+          type: string
+        tracking:
+          $ref: '#/components/schemas/p2p.Tracking'
       required:
         - id
         - currency
@@ -7475,31 +7932,6 @@ components:
         - is_deposit_payment_in_progress
         - is_remainder_payment_in_progress
         - client_id
-      type: object
-    p2p.TransactionPage:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/p2p.Transaction'
-          type: array
-        page:
-          format: int64
-          type: integer
-        page_size:
-          format: int64
-          type: integer
-        total_count:
-          format: int64
-          type: integer
-        total_pages:
-          format: int64
-          type: integer
-      required:
-        - data
-        - total_count
-        - page
-        - total_pages
-        - page_size
       type: object
     personal.BankAccount:
       properties:
@@ -7864,10 +8296,6 @@ components:
         - verified
         - set
       type: string
-    users.AccessRole:
-      enum:
-        - admin
-      type: string
     users.Balances:
       properties:
         available:
@@ -7893,6 +8321,8 @@ components:
       type: object
     users.GuestUser:
       example:
+        created_at: '2019-12-25T13:00:00Z'
+        email: jo@example.com
         id: 1-feb33a87-3917-4538-9260-127c8a6b5232
       properties:
         created_at:
@@ -7910,6 +8340,37 @@ components:
         - email
         - created_at
       type: object
+    users.PayoutItem:
+      properties:
+        amount:
+          format: int64
+          type: integer
+        arriving:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        initiated:
+          format: date-time
+          type: string
+        status:
+          type: string
+      required:
+        - amount
+        - currency
+        - status
+        - initiated
+        - arriving
+      type: object
+    users.Payouts:
+      properties:
+        payouts:
+          items:
+            $ref: '#/components/schemas/users.PayoutItem'
+          type: array
+      required:
+        - payouts
+      type: object
     users.TosAcceptance:
       properties:
         ip:
@@ -7921,84 +8382,4 @@ components:
       required:
         - unix_timestamp
         - ip
-      type: object
-    users.User:
-      example:
-        id: 2-feb33a87-3917-4538-9260-127c8a6b5232
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        deleted_at:
-          format: date-time
-          type: string
-        email:
-          type: string
-        id:
-          type: string
-      required:
-        - id
-        - email
-        - created_at
-      type: object
-    users_client.ClientUserWithRoles:
-      properties:
-        email:
-          description: User email address
-          type: string
-        full_name:
-          description: User full name
-          type: string
-        id:
-          description: User ID
-          type: string
-        roles:
-          description: Array of client role names
-          items:
-            $ref: '#/components/schemas/users.AccessRole'
-          type: array
-      required:
-        - id
-        - email
-        - full_name
-        - roles
-      type: object
-    users_client.User:
-      example:
-        email: test@test.com
-        id: 2-feb33a87-3917-4538-9260-127c8a6b5232
-      properties:
-        email:
-          type: string
-        id:
-          type: string
-      required:
-        - id
-        - email
-      type: object
-    webhook.ClientWebhook:
-      properties:
-        client_id:
-          type: string
-        created:
-          format: date-time
-          type: string
-        id:
-          type: string
-        password:
-          type: string
-        updated:
-          format: date-time
-          type: string
-        url:
-          type: string
-        username:
-          type: string
-      required:
-        - id
-        - client_id
-        - url
-        - username
-        - password
-        - created
       type: object
