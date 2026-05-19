@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/batch/transactions": {
+    "/api/v1/batch/transactions": {
         parameters: {
             query?: never;
             header?: never;
@@ -36,7 +36,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/charge": {
+    "/api/v1/charge": {
         parameters: {
             query?: never;
             header?: never;
@@ -60,7 +60,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/client/supported_registration_countries": {
+    "/api/v1/client/supported_registration_countries": {
         parameters: {
             query?: never;
             header?: never;
@@ -77,7 +77,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/clients/{client_id}/timelines": {
+    "/api/v1/clients/{client_id}/timelines": {
         parameters: {
             query?: never;
             header?: never;
@@ -94,7 +94,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/guest_users": {
+    "/api/v1/guest_users": {
         parameters: {
             query?: never;
             header?: never;
@@ -119,7 +119,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/account_session": {
+    "/api/v1/me/account_session": {
         parameters: {
             query?: never;
             header?: never;
@@ -136,7 +136,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/balances": {
+    "/api/v1/me/balances": {
         parameters: {
             query?: never;
             header?: never;
@@ -153,7 +153,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/debit_account": {
+    "/api/v1/me/debit_account": {
         parameters: {
             query?: never;
             header?: never;
@@ -171,7 +171,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/features": {
+    "/api/v1/me/features": {
         parameters: {
             query?: never;
             header?: never;
@@ -188,7 +188,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/features/instant_payouts": {
+    "/api/v1/me/features/instant_payouts": {
         parameters: {
             query?: never;
             header?: never;
@@ -205,7 +205,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/instant_payout_balance": {
+    "/api/v1/me/instant_payout_balance": {
         parameters: {
             query?: never;
             header?: never;
@@ -222,7 +222,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/notifications": {
+    "/api/v1/me/notifications": {
         parameters: {
             query?: never;
             header?: never;
@@ -239,7 +239,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/payout_attempts": {
+    "/api/v1/me/payout_attempts": {
         parameters: {
             query?: never;
             header?: never;
@@ -261,7 +261,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/personal/additional_identity_document/verification_status": {
+    "/api/v1/me/payouts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get the list of payouts for the current user in each currency */
+        get: operations["users.getPayouts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/personal/additional_identity_document/verification_status": {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +295,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/personal/additional_identity_document_back/verification_status": {
+    "/api/v1/me/personal/additional_identity_document_back/verification_status": {
         parameters: {
             query?: never;
             header?: never;
@@ -295,7 +312,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/personal/details": {
+    "/api/v1/me/personal/details": {
         parameters: {
             query?: never;
             header?: never;
@@ -313,7 +330,7 @@ export interface paths {
         patch: operations["personal.setDetails"];
         trace?: never;
     };
-    "/me/personal/identity_document/verification_status": {
+    "/api/v1/me/personal/identity_document/verification_status": {
         parameters: {
             query?: never;
             header?: never;
@@ -330,7 +347,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/personal/identity_document_back/verification_status": {
+    "/api/v1/me/personal/identity_document_back/verification_status": {
         parameters: {
             query?: never;
             header?: never;
@@ -347,7 +364,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/personal/stripe_publishable_key": {
+    "/api/v1/me/personal/stripe_publishable_key": {
         parameters: {
             query?: never;
             header?: never;
@@ -368,7 +385,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/profile/payout_status": {
+    "/api/v1/me/profile/payout_status": {
         parameters: {
             query?: never;
             header?: never;
@@ -392,7 +409,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/stripe_financial_connections/add_account": {
+    "/api/v1/me/stripe_financial_connections/add_account": {
         parameters: {
             query?: never;
             header?: never;
@@ -409,7 +426,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/stripe_financial_connections/ownership": {
+    "/api/v1/me/stripe_financial_connections/ownership": {
         parameters: {
             query?: never;
             header?: never;
@@ -426,7 +443,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/stripe_financial_connections/prepare_account": {
+    "/api/v1/me/stripe_financial_connections/prepare_account": {
         parameters: {
             query?: never;
             header?: never;
@@ -446,7 +463,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/transactions": {
+    "/api/v1/me/transactions": {
         parameters: {
             query?: never;
             header?: never;
@@ -471,7 +488,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/transactions/create_and_join": {
+    "/api/v1/me/transactions/create_and_join": {
         parameters: {
             query?: never;
             header?: never;
@@ -495,7 +512,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/transactions/create_with_guest_user": {
+    "/api/v1/me/transactions/create_with_guest_user": {
         parameters: {
             query?: never;
             header?: never;
@@ -520,7 +537,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/verification_method": {
+    "/api/v1/me/verification_method": {
         parameters: {
             query?: never;
             header?: never;
@@ -537,7 +554,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/verification_session": {
+    "/api/v1/me/verification_session": {
         parameters: {
             query?: never;
             header?: never;
@@ -557,7 +574,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/verification_session_native": {
+    "/api/v1/me/verification_session_native": {
         parameters: {
             query?: never;
             header?: never;
@@ -580,7 +597,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/me/verification_status": {
+    "/api/v1/me/verification_status": {
         parameters: {
             query?: never;
             header?: never;
@@ -600,7 +617,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/notifications/{notification_id}": {
+    "/api/v1/notifications/{notification_id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -617,7 +634,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/notifications/{notification_id}/mark_as_read": {
+    "/api/v1/notifications/{notification_id}/mark_as_read": {
         parameters: {
             query?: never;
             header?: never;
@@ -634,7 +651,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/batch/transactions": {
+    "/api/v1/p2p/batch/transactions": {
         parameters: {
             query?: never;
             header?: never;
@@ -667,7 +684,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/charge": {
+    "/api/v1/p2p/charge": {
         parameters: {
             query?: never;
             header?: never;
@@ -691,7 +708,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/clients/{client_id}/timelines": {
+    "/api/v1/p2p/clients/{client_id}/timelines": {
         parameters: {
             query?: never;
             header?: never;
@@ -708,7 +725,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/listings/create_with_seller": {
+    "/api/v1/p2p/listings/create_with_seller": {
         parameters: {
             query?: never;
             header?: never;
@@ -721,14 +738,14 @@ export interface paths {
          * Creates a transaction with guest seller and returns actions
          *     page url
          */
-        post: operations["p2p.createWithSeller"];
+        post: operations["p2p.createListingWithSeller"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/p2p/me/transactions": {
+    "/api/v1/p2p/me/transactions": {
         parameters: {
             query?: never;
             header?: never;
@@ -757,7 +774,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/me/transactions/create_and_join": {
+    "/api/v1/p2p/me/transactions/create_and_join": {
         parameters: {
             query?: never;
             header?: never;
@@ -785,7 +802,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/me/transactions/create_with_guest_user": {
+    "/api/v1/p2p/me/transactions/create_with_guest_user": {
         parameters: {
             query?: never;
             header?: never;
@@ -810,7 +827,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}": {
+    "/api/v1/p2p/transactions/{transaction_id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -828,7 +845,7 @@ export interface paths {
         patch: operations["updateF2fTransaction"];
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/accept_complaint": {
+    "/api/v1/p2p/transactions/{transaction_id}/accept_complaint": {
         parameters: {
             query?: never;
             header?: never;
@@ -845,7 +862,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/accept_deposit": {
+    "/api/v1/p2p/transactions/{transaction_id}/accept_deposit": {
         parameters: {
             query?: never;
             header?: never;
@@ -865,7 +882,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/accept_deposit_with_guest_seller": {
+    "/api/v1/p2p/transactions/{transaction_id}/accept_deposit_with_guest_seller": {
         parameters: {
             query?: never;
             header?: never;
@@ -882,7 +899,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/bank_transfer_details": {
+    "/api/v1/p2p/transactions/{transaction_id}/bank_transfer_details": {
         parameters: {
             query?: never;
             header?: never;
@@ -899,7 +916,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/billing_details": {
+    "/api/v1/p2p/transactions/{transaction_id}/billing_details": {
         parameters: {
             query?: never;
             header?: never;
@@ -916,7 +933,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/cancel_with_description": {
+    "/api/v1/p2p/transactions/{transaction_id}/buyer_details": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get the details of the buyer from this face-to-face transaction */
+        get: operations["p2p.getBuyerDetails"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/p2p/transactions/{transaction_id}/cancel_with_description": {
         parameters: {
             query?: never;
             header?: never;
@@ -941,7 +975,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/cancel_with_description_with_guest_user": {
+    "/api/v1/p2p/transactions/{transaction_id}/cancel_with_description_with_guest_user": {
         parameters: {
             query?: never;
             header?: never;
@@ -963,7 +997,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/claim_for_buyer": {
+    "/api/v1/p2p/transactions/{transaction_id}/claim_for_buyer": {
         parameters: {
             query?: never;
             header?: never;
@@ -977,14 +1011,14 @@ export interface paths {
          * @description This endpoint enables a client to claim a face-to-face transaction on behalf of a buyer.
          *     This endpoint is only accessible for a client.
          */
-        post: operations["p2p.claimForBuyer"];
+        post: operations["p2p.claimTransactionForBuyer"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/claim_for_seller": {
+    "/api/v1/p2p/transactions/{transaction_id}/claim_for_seller": {
         parameters: {
             query?: never;
             header?: never;
@@ -1005,7 +1039,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/complain": {
+    "/api/v1/p2p/transactions/{transaction_id}/complain": {
         parameters: {
             query?: never;
             header?: never;
@@ -1025,7 +1059,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/complain_with_guest_buyer": {
+    "/api/v1/p2p/transactions/{transaction_id}/complain_with_guest_buyer": {
         parameters: {
             query?: never;
             header?: never;
@@ -1042,7 +1076,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/confirm_handover": {
+    "/api/v1/p2p/transactions/{transaction_id}/confirm_handover": {
         parameters: {
             query?: never;
             header?: never;
@@ -1067,7 +1101,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/confirm_handover_with_guest_user": {
+    "/api/v1/p2p/transactions/{transaction_id}/confirm_handover_with_guest_user": {
         parameters: {
             query?: never;
             header?: never;
@@ -1088,7 +1122,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/deposit_stripe_client_secret": {
+    "/api/v1/p2p/transactions/{transaction_id}/deposit_stripe_client_secret": {
         parameters: {
             query?: never;
             header?: never;
@@ -1112,7 +1146,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/end_complaint_period_with_guest_buyer": {
+    "/api/v1/p2p/transactions/{transaction_id}/end_complaint_period": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** End the complaint period for this face-to-face transaction with a full user */
+        post: operations["p2p.endComplaintPeriod"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/p2p/transactions/{transaction_id}/end_complaint_period_with_guest_buyer": {
         parameters: {
             query?: never;
             header?: never;
@@ -1129,7 +1180,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/join_with_guest": {
+    "/api/v1/p2p/transactions/{transaction_id}/join_with_guest": {
         parameters: {
             query?: never;
             header?: never;
@@ -1146,7 +1197,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/metadata": {
+    "/api/v1/p2p/transactions/{transaction_id}/metadata": {
         parameters: {
             query?: never;
             header?: never;
@@ -1164,22 +1215,15 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/remainder_stripe_client_secret": {
+    "/api/v1/p2p/transactions/{transaction_id}/seller_details": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /**
-         * Get the Stripe client secret for this face-to-face transaction
-         * @description This endpoint is used for the asynchronous payment flow using
-         *     Stripe. The `client_secret` returned from this endpoint should
-         *     be passed to
-         *     [stripe.confirmCardPayment](https://stripe.com/docs/stripe-js/reference#stripe-confirm-card-payment)
-         *     to start the payment process.
-         */
-        get: operations["p2p.getRemainderStripeClientSecretForTransaction"];
+        /** Get the details of the seller from this face-to-face transaction */
+        get: operations["p2p.getSellerDetailsForTransaction"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1188,7 +1232,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/set_deposit_payment_method": {
+    "/api/v1/p2p/transactions/{transaction_id}/set_deposit_payment_method": {
         parameters: {
             query?: never;
             header?: never;
@@ -1209,7 +1253,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transaction_id}/stripe_publishable_key": {
+    "/api/v1/p2p/transactions/{transaction_id}/stripe_publishable_key": {
         parameters: {
             query?: never;
             header?: never;
@@ -1230,41 +1274,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transactionId}/buyer_details": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get the details of the buyer from this face-to-face transaction */
-        get: operations["getBuyerDetailsFromP2PTransaction"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/p2p/transactions/{transactionId}/seller_details": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get the details of the seller from this face-to-face transaction */
-        get: operations["getSellerDetailsFromP2PTransaction"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/p2p/transactions/{transactionId}/set_price": {
+    "/api/v1/p2p/transactions/{transactionId}/set_price": {
         parameters: {
             query?: never;
             header?: never;
@@ -1292,7 +1302,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions/{transactionId}/skip_remainder": {
+    "/api/v1/p2p/transactions/{transactionId}/skip_remainder": {
         parameters: {
             query?: never;
             header?: never;
@@ -1315,7 +1325,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions_by_claim_secret/{secret}/claim_as_buyer": {
+    "/api/v1/p2p/transactions_by_claim_secret/{secret}/claim_as_buyer": {
         parameters: {
             query?: never;
             header?: never;
@@ -1336,7 +1346,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions_by_claim_secret/{secret}/claim_as_seller": {
+    "/api/v1/p2p/transactions_by_claim_secret/{secret}/claim_as_seller": {
         parameters: {
             query?: never;
             header?: never;
@@ -1357,7 +1367,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions_by_join_code/{join_code}/join": {
+    "/api/v1/p2p/transactions_by_join_code/{join_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get a face-to-face transaction by its join code */
+        get: operations["p2p.getTransactionByJoinCode"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/p2p/transactions_by_join_code/{join_code}/join": {
         parameters: {
             query?: never;
             header?: never;
@@ -1377,24 +1404,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/p2p/transactions_by_join_code/{joinCode}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get a face-to-face transaction by its join code */
-        get: operations["getP2PTransactionByJoinCode"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/shippo_shipping_rates": {
+    "/api/v1/shippo_shipping_rates": {
         parameters: {
             query?: never;
             header?: never;
@@ -1416,7 +1426,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/supported_carriers": {
+    "/api/v1/supported_carriers": {
         parameters: {
             query?: never;
             header?: never;
@@ -1443,7 +1453,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions": {
+    "/api/v1/transactions": {
         parameters: {
             query?: never;
             header?: never;
@@ -1466,7 +1476,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}": {
+    "/api/v1/transactions/{transaction_id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -1484,7 +1494,7 @@ export interface paths {
         patch: operations["updateTransaction"];
         trace?: never;
     };
-    "/transactions/{transaction_id}/accept_complaint": {
+    "/api/v1/transactions/{transaction_id}/accept_complaint": {
         parameters: {
             query?: never;
             header?: never;
@@ -1501,7 +1511,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/accept_payment": {
+    "/api/v1/transactions/{transaction_id}/accept_payment": {
         parameters: {
             query?: never;
             header?: never;
@@ -1525,7 +1535,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/accept_payment_with_guest_seller": {
+    "/api/v1/transactions/{transaction_id}/accept_payment_with_guest_seller": {
         parameters: {
             query?: never;
             header?: never;
@@ -1546,7 +1556,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/bank_transfer_details": {
+    "/api/v1/transactions/{transaction_id}/bank_transfer_details": {
         parameters: {
             query?: never;
             header?: never;
@@ -1563,7 +1573,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/billing_details": {
+    "/api/v1/transactions/{transaction_id}/billing_details": {
         parameters: {
             query?: never;
             header?: never;
@@ -1580,7 +1590,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/buyer_details": {
+    "/api/v1/transactions/{transaction_id}/buyer_details": {
         parameters: {
             query?: never;
             header?: never;
@@ -1597,7 +1607,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/cancel": {
+    "/api/v1/transactions/{transaction_id}/cancel": {
         parameters: {
             query?: never;
             header?: never;
@@ -1622,7 +1632,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/cancel_with_guest_user": {
+    "/api/v1/transactions/{transaction_id}/cancel_with_guest_user": {
         parameters: {
             query?: never;
             header?: never;
@@ -1645,7 +1655,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/charge": {
+    "/api/v1/transactions/{transaction_id}/charge": {
         parameters: {
             query?: never;
             header?: never;
@@ -1669,7 +1679,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/claim_for_buyer": {
+    "/api/v1/transactions/{transaction_id}/claim_for_buyer": {
         parameters: {
             query?: never;
             header?: never;
@@ -1690,7 +1700,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/claim_for_seller": {
+    "/api/v1/transactions/{transaction_id}/claim_for_seller": {
         parameters: {
             query?: never;
             header?: never;
@@ -1711,7 +1721,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/complain_with_description": {
+    "/api/v1/transactions/{transaction_id}/complain_with_description": {
         parameters: {
             query?: never;
             header?: never;
@@ -1728,7 +1738,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/complain_with_guest_buyer": {
+    "/api/v1/transactions/{transaction_id}/complain_with_guest_buyer": {
         parameters: {
             query?: never;
             header?: never;
@@ -1745,7 +1755,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/confirm_delivery": {
+    "/api/v1/transactions/{transaction_id}/confirm_delivery": {
         parameters: {
             query?: never;
             header?: never;
@@ -1767,7 +1777,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/confirm_delivery_with_guest_buyer": {
+    "/api/v1/transactions/{transaction_id}/confirm_delivery_with_guest_buyer": {
         parameters: {
             query?: never;
             header?: never;
@@ -1788,7 +1798,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/end_complaint_period": {
+    "/api/v1/transactions/{transaction_id}/end_complaint_period": {
         parameters: {
             query?: never;
             header?: never;
@@ -1805,7 +1815,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/extend_tracking_deadline": {
+    "/api/v1/transactions/{transaction_id}/extend_tracking_deadline": {
         parameters: {
             query?: never;
             header?: never;
@@ -1826,7 +1836,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/generate_shipment_label": {
+    "/api/v1/transactions/{transaction_id}/generate_shipment_label": {
         parameters: {
             query?: never;
             header?: never;
@@ -1848,7 +1858,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/seller_details": {
+    "/api/v1/transactions/{transaction_id}/seller_details": {
         parameters: {
             query?: never;
             header?: never;
@@ -1865,7 +1875,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/set_payment_method": {
+    "/api/v1/transactions/{transaction_id}/set_payment_method": {
         parameters: {
             query?: never;
             header?: never;
@@ -1890,7 +1900,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/shipping_details": {
+    "/api/v1/transactions/{transaction_id}/shipping_details": {
         parameters: {
             query?: never;
             header?: never;
@@ -1908,7 +1918,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/shippo_address": {
+    "/api/v1/transactions/{transaction_id}/shippo_address": {
         parameters: {
             query?: never;
             header?: never;
@@ -1925,7 +1935,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/shippo_customs_declaration": {
+    "/api/v1/transactions/{transaction_id}/shippo_customs_declaration": {
         parameters: {
             query?: never;
             header?: never;
@@ -1942,7 +1952,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/shippo_parcel_details": {
+    "/api/v1/transactions/{transaction_id}/shippo_parcel_details": {
         parameters: {
             query?: never;
             header?: never;
@@ -1959,7 +1969,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/shippo_shipping_label": {
+    "/api/v1/transactions/{transaction_id}/shippo_shipping_label": {
         parameters: {
             query?: never;
             header?: never;
@@ -1976,7 +1986,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/shippo_shipping_rate": {
+    "/api/v1/transactions/{transaction_id}/shippo_shipping_rate": {
         parameters: {
             query?: never;
             header?: never;
@@ -1999,7 +2009,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/shippo_shipping_rates": {
+    "/api/v1/transactions/{transaction_id}/shippo_shipping_rates": {
         parameters: {
             query?: never;
             header?: never;
@@ -2016,7 +2026,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/stripe_client_secret": {
+    "/api/v1/transactions/{transaction_id}/stripe_client_secret": {
         parameters: {
             query?: never;
             header?: never;
@@ -2040,7 +2050,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/stripe_publishable_key": {
+    "/api/v1/transactions/{transaction_id}/stripe_publishable_key": {
         parameters: {
             query?: never;
             header?: never;
@@ -2061,7 +2071,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/submit_order_issue": {
+    "/api/v1/transactions/{transaction_id}/submit_order_issue": {
         parameters: {
             query?: never;
             header?: never;
@@ -2078,7 +2088,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/track": {
+    "/api/v1/transactions/{transaction_id}/track": {
         parameters: {
             query?: never;
             header?: never;
@@ -2104,7 +2114,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions/{transaction_id}/track_with_guest_seller": {
+    "/api/v1/transactions/{transaction_id}/track_with_guest_seller": {
         parameters: {
             query?: never;
             header?: never;
@@ -2125,7 +2135,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions_by_claim_secret/{secret}/claim_as_buyer": {
+    "/api/v1/transactions_by_claim_secret/{secret}/claim_as_buyer": {
         parameters: {
             query?: never;
             header?: never;
@@ -2146,7 +2156,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/transactions_by_claim_secret/{secret}/claim_as_seller": {
+    "/api/v1/transactions_by_claim_secret/{secret}/claim_as_seller": {
         parameters: {
             query?: never;
             header?: never;
@@ -2175,11 +2185,6 @@ export interface components {
             code: string;
             name: string;
         };
-        /**
-         * @example fedex
-         * @enum {string}
-         */
-        CarrierName: "fedex" | "ups" | "usps" | "posta_hr";
         /**
          * @example {
          *       "description": "Item was fake"
@@ -2339,21 +2344,15 @@ export interface components {
             name?: string;
             phone?: string;
         };
-        "basic.CarrierFacility": {
-            address: string;
-            city: string;
-            code?: string;
-            delivery_type: string;
-            name: string;
-            postal_code: string;
-        };
         /**
          * @example {
          *       "charge": 340,
+         *       "charge_buyer_client": 0,
          *       "charge_calculator_version": 5,
          *       "charge_config": 1,
          *       "charge_postage_buyer": 1000,
          *       "charge_seller": 0,
+         *       "charge_seller_client": 0,
          *       "currency": "eur",
          *       "payment_method": "card",
          *       "price": 10000
@@ -2368,6 +2367,12 @@ export interface components {
              *     for more details.
              */
             charge: number;
+            /**
+             * Format: int64
+             * @description The portion of the buyer's fee that is attributed to the client,
+             *     in the `currency`'s smallest unit.
+             */
+            charge_buyer_client: number;
             /**
              * Format: int64
              * @description The version of the Trustap charge calculator that was used
@@ -2413,6 +2418,12 @@ export interface components {
              *     for more details.
              */
             charge_seller: number;
+            /**
+             * Format: int64
+             * @description The portion of the seller's fee that is attributed to the client,
+             *     in the `currency`'s smallest unit.
+             */
+            charge_seller_client: number;
             currency: string;
             payment_method?: string;
             /** Format: int64 */
@@ -2425,19 +2436,6 @@ export interface components {
             delivery_allowance_seconds?: number;
             /** Format: int64 */
             tracking_details_allowance_seconds?: number;
-        };
-        "basic.DeliveryDetails": {
-            carrier: string;
-            city: string;
-            delivery_center_code: string;
-            delivery_type: string;
-            email: string;
-            full_name: string;
-            house_number: string;
-            house_number_suffix: string;
-            phone: string;
-            postal_code: string;
-            street: string;
         };
         /**
          * @example cm
@@ -2466,35 +2464,6 @@ export interface components {
          * @enum {string}
          */
         "basic.MassUnit": "lb" | "kg";
-        "basic.PickUpDetails": {
-            carrier: string;
-            city: string;
-            delivery_type: string;
-            email: string;
-            full_name: string;
-            house_number: string;
-            house_number_suffix: string;
-            phone: string;
-            pick_up_center_code: string;
-            postal_code: string;
-            street: string;
-        };
-        /**
-         * @example {
-         *       "charge": 78,
-         *       "price": 1234
-         *     }
-         */
-        "basic.Pricing": {
-            /** Format: int64 */
-            charge: number;
-            /** Format: int64 */
-            charge_international_payment?: number;
-            /** Format: int64 */
-            charge_seller: number;
-            /** Format: int64 */
-            price: number;
-        };
         "basic.Refund": {
             /** Format: int64 */
             amount: number;
@@ -2581,7 +2550,9 @@ export interface components {
          * @example {
          *       "buyer_id": "feb33a87-3917-4538-9260-127c8a6b5232",
          *       "charge": 78,
+         *       "charge_buyer_client": 0,
          *       "charge_seller": 0,
+         *       "charge_seller_client": 0,
          *       "client_id": "trustap-app",
          *       "created": "2019-12-25T09:00:00Z",
          *       "currency": "eur",
@@ -2618,6 +2589,8 @@ export interface components {
             /** Format: int64 */
             charge: number;
             /** Format: int64 */
+            charge_buyer_client: number;
+            /** Format: int64 */
             charge_international_payment?: number;
             /** Format: int64 */
             charge_postage_buyer?: number;
@@ -2625,6 +2598,8 @@ export interface components {
             charge_postage_client?: number;
             /** Format: int64 */
             charge_seller: number;
+            /** Format: int64 */
+            charge_seller_client: number;
             /** Format: date-time */
             claimed_by_buyer?: string;
             client_id: string;
@@ -2709,17 +2684,6 @@ export interface components {
             /** Format: date-time */
             tracking_details_window_started?: string;
         };
-        "basic.TransactionPage": {
-            data: components["schemas"]["basic.Transaction"][];
-            /** Format: int64 */
-            page: number;
-            /** Format: int64 */
-            page_size: number;
-            /** Format: int64 */
-            total_count: number;
-            /** Format: int64 */
-            total_pages: number;
-        };
         /**
          * @example {
          *       "first": "John",
@@ -2729,21 +2693,6 @@ export interface components {
         "basic.UserDetailsName": {
             first: string;
             last: string;
-        };
-        "client.ClientCustomization": {
-            button_color_hex?: string;
-            client_id?: string;
-            collect_phone_number?: boolean;
-            /** Format: date-time */
-            created?: string;
-            favicon_url?: string;
-            id?: string;
-            name?: string;
-            protection_fee_label?: string;
-            public_name?: string;
-            text_color_hex?: string;
-            /** Format: date-time */
-            updated?: string;
         };
         "p2p.Aba": {
             account_number: string;
@@ -2767,12 +2716,15 @@ export interface components {
         /**
          * @example {
          *       "charge": 78,
+         *       "charge_buyer_client": 0,
          *       "charge_calculator_version": 5,
          *       "charge_config": 1,
          *       "charge_seller": 0,
+         *       "charge_seller_client": 0,
          *       "currency": "eur",
          *       "payment_method": "card",
-         *       "price": 1234
+         *       "price": 1234,
+         *       "price_extra": 0
          *     }
          */
         "p2p.Charge": {
@@ -2784,6 +2736,12 @@ export interface components {
              *     for more details.
              */
             charge: number;
+            /**
+             * Format: int64
+             * @description The portion of the buyer's fee that is attributed to the client,
+             *     in the `currency`'s smallest unit.
+             */
+            charge_buyer_client: number;
             /**
              * Format: int64
              * @description The version of the Trustap charge calculator that was used
@@ -2819,10 +2777,25 @@ export interface components {
              *     for more details.
              */
             charge_seller: number;
+            /**
+             * Format: int64
+             * @description The portion of the seller's fee that is attributed to the client,
+             *     in the `currency`'s smallest unit.
+             */
+            charge_seller_client: number;
             currency: string;
             payment_method?: string;
             /** Format: int64 */
             price: number;
+            /**
+             * Format: int64
+             * @description Represents an additional charge to be paid by the buyer added
+             *     to the transaction total. Use this field to include costs like
+             *     processing fees, local taxes, or shipping surcharges.
+             *     Must be an integer provided in the smallest unit of the currency
+             *     (for example, 500 for $5.00 USD). Defaults to 0 if not provided.
+             */
+            price_extra?: number;
         };
         "p2p.ClientTimelines": {
             /** Format: int64 */
@@ -2834,6 +2807,8 @@ export interface components {
          *     }
          */
         "p2p.Complaint": {
+            /** Format: date-time */
+            accepted?: string;
             description: string;
         };
         /**
@@ -2851,6 +2826,7 @@ export interface components {
          *       "deposit_charge": 2000,
          *       "deposit_charge_seller": 0,
          *       "deposit_price": 200000,
+         *       "deposit_price_extra": 500,
          *       "payment_method": "bank_transfer"
          *     }
          */
@@ -2864,6 +2840,8 @@ export interface components {
             deposit_charge_seller: number;
             /** Format: int64 */
             deposit_price: number;
+            /** Format: int64 */
+            deposit_price_extra?: number;
             payment_method: string;
         };
         "p2p.FinancialAddress": {
@@ -2885,20 +2863,47 @@ export interface components {
         "p2p.ListingType": "single_use" | "multi_use";
         /**
          * @example {
+         *       "description": "Item was not delivered"
+         *     }
+         */
+        "p2p.OrderIssue": {
+            description: string;
+        };
+        /**
+         * @example {
          *       "charge": 78,
-         *       "price": 1234
+         *       "charge_buyer_client": 0,
+         *       "charge_buyer_service": 78,
+         *       "charge_seller": 0,
+         *       "charge_seller_client": 0,
+         *       "charge_seller_service": 0,
+         *       "extra_processing_charge": 0,
+         *       "price": 1234,
+         *       "price_extra": 0
          *     }
          */
         "p2p.Pricing": {
             /** Format: int64 */
             charge: number;
             /** Format: int64 */
+            charge_buyer_client: number;
+            /** Format: int64 */
+            charge_buyer_service: number;
+            /** Format: int64 */
             charge_international_payment?: number;
             /** Format: int64 */
             charge_seller: number;
+            /** Format: int64 */
+            charge_seller_client: number;
+            /** Format: int64 */
+            charge_seller_service: number;
             deposit_fee_multiplier?: components["schemas"]["p2p.DepositFeeMultiplier"];
             /** Format: int64 */
+            extra_processing_charge: number;
+            /** Format: int64 */
             price: number;
+            /** Format: int64 */
+            price_extra: number;
         };
         "p2p.Refund": {
             /** Format: int64 */
@@ -2925,9 +2930,6 @@ export interface components {
             account_number: string;
             sort_code: string;
         };
-        "p2p.StripeToken": {
-            stripe_token: string;
-        };
         "p2p.Swift": {
             account_number: string;
             bank_name: string;
@@ -2935,8 +2937,19 @@ export interface components {
         };
         /**
          * @example {
+         *       "carrier": "ups",
+         *       "tracking_code": "***"
+         *     }
+         */
+        "p2p.Tracking": {
+            carrier: string;
+            tracking_code: string;
+        };
+        /**
+         * @example {
          *       "buyer_handover_confirmed": "2019-12-25T16:00:00Z",
          *       "buyer_id": "feb33a87-3917-4538-9260-127c8a6b5232",
+         *       "charge_config": 1,
          *       "client_id": "trustap-app",
          *       "created": "2019-12-25T09:00:00Z",
          *       "currency": "eur",
@@ -2944,7 +2957,14 @@ export interface components {
          *       "deposit_paid": "2019-12-25T11:00:00Z",
          *       "deposit_pricing": {
          *         "charge": 78,
-         *         "price": 1234
+         *         "charge_buyer_client": 0,
+         *         "charge_buyer_service": 78,
+         *         "charge_seller": 0,
+         *         "charge_seller_client": 0,
+         *         "charge_seller_service": 0,
+         *         "extra_processing_charge": 0,
+         *         "price": 1234,
+         *         "price_extra": 0
          *       },
          *       "description": "Soccer ticket",
          *       "funds_released": "2019-12-25T17:00:00Z",
@@ -2955,8 +2975,16 @@ export interface components {
          *       "priced": "2019-12-25T13:00:00Z",
          *       "pricing": {
          *         "charge": 190,
-         *         "price": 5000
+         *         "charge_buyer_client": 0,
+         *         "charge_buyer_service": 190,
+         *         "charge_seller": 0,
+         *         "charge_seller_client": 0,
+         *         "charge_seller_service": 0,
+         *         "extra_processing_charge": 0,
+         *         "price": 5000,
+         *         "price_extra": 0
          *       },
+         *       "quantity": 1,
          *       "remainder_paid": "2019-12-25T14:00:00Z",
          *       "seller_handover_confirmed": "2019-12-25T15:00:00Z",
          *       "seller_id": "ad5bb99f-85bf-47e1-be0d-15e7541c6ad7",
@@ -2967,6 +2995,8 @@ export interface components {
         "p2p.Transaction": {
             /** Format: int64 */
             amount_refunded?: number;
+            /** Format: int64 */
+            amount_released?: number;
             /** Format: date-time */
             buyer_handover_confirmed?: string;
             buyer_id?: string;
@@ -2974,10 +3004,14 @@ export interface components {
             cancellation?: components["schemas"]["p2p.Cancellation"];
             /** Format: date-time */
             cancelled?: string;
+            /** Format: int64 */
+            charge_config?: number;
             /** Format: date-time */
             claimed_by_buyer?: string;
             /** Format: date-time */
             claimed_by_seller?: string;
+            /** Format: int64 */
+            client_accrual_net?: number;
             client_id: string;
             /** Format: date-time */
             complained?: string;
@@ -2986,6 +3020,7 @@ export interface components {
             complaint_period_deadline?: string;
             /** Format: date-time */
             complaint_period_ended?: string;
+            contains_shipping?: boolean;
             /** Format: date-time */
             created: string;
             /**
@@ -2994,6 +3029,8 @@ export interface components {
              *     seller will be paid in the transaction's currency.
              */
             currency: string;
+            /** Format: date-time */
+            delivered?: string;
             /** Format: date-time */
             deposit_accepted?: string;
             /** Format: date-time */
@@ -3038,6 +3075,7 @@ export interface components {
              */
             listing_id?: string;
             listing_type?: components["schemas"]["p2p.ListingType"];
+            order_issue?: components["schemas"]["p2p.OrderIssue"];
             /** Format: date-time */
             order_issue_raised?: string;
             /** Format: date-time */
@@ -3070,17 +3108,23 @@ export interface components {
              */
             skip_remainder: boolean;
             status: string;
+            /** Format: date-time */
+            tracked?: string;
+            tracking?: components["schemas"]["p2p.Tracking"];
         };
-        "p2p.TransactionPage": {
-            data: components["schemas"]["p2p.Transaction"][];
-            /** Format: int64 */
-            page: number;
-            /** Format: int64 */
-            page_size: number;
-            /** Format: int64 */
-            total_count: number;
-            /** Format: int64 */
-            total_pages: number;
+        "p2p.UserDetails": {
+            email: string;
+            /**
+             * @example {
+             *       "first": "John",
+             *       "last": "Doe"
+             *     }
+             */
+            name?: {
+                first: string;
+                last: string;
+            };
+            phone?: string;
         };
         "personal.BankAccount": {
             bank_name: string;
@@ -3215,8 +3259,6 @@ export interface components {
         };
         /** @enum {string} */
         "personal.VerificationStatus": "unset" | "invalid" | "verifying" | "verified_and_verifying" | "verified" | "set";
-        /** @enum {string} */
-        "users.AccessRole": "admin";
         "users.Balances": {
             available: {
                 /** Format: int64 */
@@ -3229,6 +3271,8 @@ export interface components {
         };
         /**
          * @example {
+         *       "created_at": "2019-12-25T13:00:00Z",
+         *       "email": "jo@example.com",
          *       "id": "1-feb33a87-3917-4538-9260-127c8a6b5232"
          *     }
          */
@@ -3240,54 +3284,23 @@ export interface components {
             email: string;
             id: string;
         };
+        "users.PayoutItem": {
+            /** Format: int64 */
+            amount: number;
+            /** Format: date-time */
+            arriving: string;
+            currency: string;
+            /** Format: date-time */
+            initiated: string;
+            status: string;
+        };
+        "users.Payouts": {
+            payouts: components["schemas"]["users.PayoutItem"][];
+        };
         "users.TosAcceptance": {
             ip: string;
             /** Format: int64 */
             unix_timestamp: number;
-        };
-        /**
-         * @example {
-         *       "id": "2-feb33a87-3917-4538-9260-127c8a6b5232"
-         *     }
-         */
-        "users.User": {
-            /** Format: date-time */
-            created_at: string;
-            /** Format: date-time */
-            deleted_at?: string;
-            email: string;
-            id: string;
-        };
-        "users_client.ClientUserWithRoles": {
-            /** @description User email address */
-            email: string;
-            /** @description User full name */
-            full_name: string;
-            /** @description User ID */
-            id: string;
-            /** @description Array of client role names */
-            roles: components["schemas"]["users.AccessRole"][];
-        };
-        /**
-         * @example {
-         *       "email": "test@test.com",
-         *       "id": "2-feb33a87-3917-4538-9260-127c8a6b5232"
-         *     }
-         */
-        "users_client.User": {
-            email: string;
-            id: string;
-        };
-        "webhook.ClientWebhook": {
-            client_id: string;
-            /** Format: date-time */
-            created: string;
-            id: string;
-            password: string;
-            /** Format: date-time */
-            updated?: string;
-            url: string;
-            username: string;
         };
     };
     responses: never;
@@ -3542,7 +3555,10 @@ export interface operations {
     "users.getBalances": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -3591,7 +3607,10 @@ export interface operations {
     "personal.setDebitAccount": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -3641,7 +3660,10 @@ export interface operations {
     "users.getUserFeatures": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -3670,7 +3692,10 @@ export interface operations {
     "users.setInstantPayouts": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -3788,6 +3813,29 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["personal.PayoutAttempt"][];
+                };
+            };
+        };
+    };
+    "users.getPayouts": {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["users.Payouts"];
                 };
             };
         };
@@ -4125,7 +4173,10 @@ export interface operations {
     "basic.createTransaction": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -4215,7 +4266,10 @@ export interface operations {
     "basic.createAndJoinTransaction": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -4326,7 +4380,10 @@ export interface operations {
     "basic.createTransactionWithGuestUser": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -4715,6 +4772,14 @@ export interface operations {
                  */
                 price: number;
                 /**
+                 * @description Represents an additional charge to be paid by the buyer added
+                 *     to the transaction total. Use this field to include costs like
+                 *     processing fees, local taxes, or shipping surcharges.
+                 *     Must be an integer provided in the smallest unit of the currency
+                 *     (for example, 500 for $5.00 USD). Defaults to 0 if not provided.
+                 */
+                price_extra?: number;
+                /**
                  * @description The `fee_multiplier` parameter is used to apply a higher percentage
                  *     fee based on the total price of the transaction. The percentage fee
                  *     is calculated multiplying the `percentage fee` by the `fee_multiplier`.
@@ -4800,7 +4865,7 @@ export interface operations {
             };
         };
     };
-    "p2p.createWithSeller": {
+    "p2p.createListingWithSeller": {
         parameters: {
             query?: never;
             header?: never;
@@ -4928,7 +4993,10 @@ export interface operations {
     "p2p.createTransaction": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -4938,7 +5006,12 @@ export interface operations {
                     /** Format: int64 */
                     charge_calculator_version: number;
                     client_id?: string;
-                    currency: components["schemas"]["Currency"];
+                    /**
+                     * @description Specifies if the transaction contains a shippable item and
+                     *     the shipping details should be collected from the buyer.
+                     */
+                    contains_shipping?: boolean;
+                    currency: components["schemas"]["p2p.Currency"];
                     /** Format: int64 */
                     deposit_charge: number;
                     /**
@@ -4952,9 +5025,18 @@ export interface operations {
                     deposit_payment_method?: string;
                     /** Format: int64 */
                     deposit_price: number;
+                    /**
+                     * Format: int64
+                     * @description Represents an additional charge to be paid by the buyer added
+                     *     to the transaction total. Use this field to include costs like
+                     *     processing fees, local taxes, or shipping surcharges.
+                     *     Must be an integer provided in the smallest unit of the currency
+                     *     (for example, 500 for $5.00 USD). Defaults to 0 if not provided.
+                     */
+                    deposit_price_extra?: number;
                     /** @description A description of the goods being sold. */
                     description: string;
-                    role: components["schemas"]["basic.Role"];
+                    role: components["schemas"]["p2p.Role"];
                     /**
                      * @description If `skip_remainder` is `true` then this
                      *     transaction will move to the "confirm handover"
@@ -5000,7 +5082,10 @@ export interface operations {
     "p2p.createAndJoinTransaction": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -5009,8 +5094,13 @@ export interface operations {
                 "application/json": {
                     /** Format: int64 */
                     charge_calculator_version: number;
+                    /**
+                     * @description Specifies if the transaction contains a shippable item and
+                     *     the shipping details should be collected from the buyer.
+                     */
+                    contains_shipping?: boolean;
                     creator_role: components["schemas"]["p2p.Role"];
-                    currency: components["schemas"]["Currency"];
+                    currency: components["schemas"]["p2p.Currency"];
                     /** Format: int64 */
                     deposit_charge: number;
                     /**
@@ -5031,6 +5121,15 @@ export interface operations {
                     deposit_payment_method?: string;
                     /** Format: int64 */
                     deposit_price: number;
+                    /**
+                     * Format: int64
+                     * @description Represents an additional charge to be paid by the buyer added
+                     *     to the transaction total. Use this field to include costs like
+                     *     processing fees, local taxes, or shipping surcharges.
+                     *     Must be an integer provided in the smallest unit of the currency
+                     *     (for example, 500 for $5.00 USD). Defaults to 0 if not provided.
+                     */
+                    deposit_price_extra?: number;
                     /** @description A description of the goods being sold. */
                     description: string;
                     /**
@@ -5092,7 +5191,10 @@ export interface operations {
     "p2p.createTransactionWithGuestUser": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -5106,6 +5208,11 @@ export interface operations {
                     buyer_id: string;
                     /** Format: int64 */
                     charge_calculator_version: number;
+                    /**
+                     * @description Specifies if the transaction contains a shippable item and
+                     *     the shipping details should be collected from the buyer.
+                     */
+                    contains_shipping?: boolean;
                     creator_role: components["schemas"]["p2p.Role"];
                     currency: components["schemas"]["p2p.Currency"];
                     /** Format: int64 */
@@ -5128,6 +5235,15 @@ export interface operations {
                     deposit_payment_method?: string;
                     /** Format: int64 */
                     deposit_price: number;
+                    /**
+                     * Format: int64
+                     * @description Represents an additional charge to be paid by the buyer added
+                     *     to the transaction total. Use this field to include costs like
+                     *     processing fees, local taxes, or shipping surcharges.
+                     *     Must be an integer provided in the smallest unit of the currency
+                     *     (for example, 500 for $5.00 USD). Defaults to 0 if not provided.
+                     */
+                    deposit_price_extra?: number;
                     /** @description A description of the goods being sold. */
                     description: string;
                     /**
@@ -5192,7 +5308,10 @@ export interface operations {
     "p2p.getTransaction": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5214,7 +5333,10 @@ export interface operations {
     updateF2fTransaction: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5228,6 +5350,8 @@ export interface operations {
                     deposit_charge?: number;
                     /** Format: int64 */
                     deposit_price?: number;
+                    /** Format: int64 */
+                    deposit_price_extra?: number;
                     /** @description A description of the goods being sold. */
                     description?: string;
                 };
@@ -5279,7 +5403,10 @@ export interface operations {
     "p2p.acceptComplaint": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5324,7 +5451,10 @@ export interface operations {
     "p2p.acceptDeposit": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5389,7 +5519,10 @@ export interface operations {
     "p2p.acceptDepositWithGuestSeller": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5436,7 +5569,10 @@ export interface operations {
     "p2p.getBankTransferDetails": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5457,6 +5593,9 @@ export interface operations {
              * @description Bad Request
              *     `code` can be one of the following:
              *       * `payment_method_not_bank_transfer`
+             *       * `paid_with_balance`
+             *
+             *       A transaction with `paid_with_balance` error code means that the buyer's payment was already paid using their Trustap balance, so there are no bank transfer details to provide.
              */
             400: {
                 headers: {
@@ -5484,6 +5623,35 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["basic.BillingDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "p2p.getBuyerDetails": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                transaction_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["p2p.UserDetails"];
                 };
             };
             /** @description Not Found */
@@ -5608,10 +5776,13 @@ export interface operations {
             };
         };
     };
-    "p2p.claimForBuyer": {
+    "p2p.claimTransactionForBuyer": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5667,7 +5838,10 @@ export interface operations {
     "p2p.claimTransactionForSeller": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5713,7 +5887,10 @@ export interface operations {
     "p2p.submitComplaint": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5758,7 +5935,10 @@ export interface operations {
     "p2p.submitComplaintWithGuestBuyer": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5803,7 +5983,10 @@ export interface operations {
     "p2p.confirmHandover": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5831,6 +6014,7 @@ export interface operations {
              *       * `buyer_handover_already_confirmed`
              *       * `remainder_payment_in_review`
              *       * `already_cancelled`
+             *       * `handover_confirmation_not_supported`
              */
             400: {
                 headers: {
@@ -5850,7 +6034,10 @@ export interface operations {
     "p2p.confirmHandoverWithGuestUserForTransaction": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5876,6 +6063,7 @@ export interface operations {
              *       * `already_complained`
              *       * `seller_handover_already_confirmed`
              *       * `buyer_handover_already_confirmed`
+             *       * `handover_confirmation_not_supported`
              */
             400: {
                 headers: {
@@ -5953,10 +6141,13 @@ export interface operations {
             };
         };
     };
-    "p2p.endComplaintPeriodWithGuestBuyer": {
+    "p2p.endComplaintPeriod": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -5979,7 +6170,53 @@ export interface operations {
              *     `code` can be one of the following:
              *
              *       * `complaint_period_expired`
-             *       * `already_complained`
+             *       * `handover_not_confirmed`
+             *       * `funds_already_released`
+             */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "p2p.endComplaintPeriodWithGuestBuyer": {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
+            path: {
+                transaction_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["p2p.Transaction"];
+                };
+            };
+            /**
+             * @description Bad Request
+             *
+             *     `code` can be one of the following:
+             *
+             *       * `complaint_period_expired`
              *       * `handover_not_confirmed`
              *       * `funds_already_released`
              */
@@ -6001,7 +6238,10 @@ export interface operations {
     "p2p.joinWithGuest": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -6123,7 +6363,7 @@ export interface operations {
             };
         };
     };
-    "p2p.getRemainderStripeClientSecretForTransaction": {
+    "p2p.getSellerDetailsForTransaction": {
         parameters: {
             query?: never;
             header?: never;
@@ -6140,41 +6380,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        client_secret: string;
-                    };
-                };
-            };
-            /**
-             * @description Bad Request
-             *
-             *     `code` can be one of the following:
-             *
-             *       * `missing_pricing`: Pricing details have not yet been
-             *         added to this transaction.
-             *       * `no_client_secret`
-             */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /**
-             * @description Forbidden
-             *
-             *     `code` can be one of the following:
-             *
-             *       * `not_buyer`
-             */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
+                    "application/json": components["schemas"]["p2p.UserDetails"];
                 };
             };
             /** @description Not Found */
@@ -6288,64 +6494,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    getBuyerDetailsFromP2PTransaction: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                transactionId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserDetails"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    getSellerDetailsFromP2PTransaction: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                transactionId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserDetails"];
                 };
             };
             /** @description Not Found */
@@ -6598,10 +6746,42 @@ export interface operations {
             };
         };
     };
-    "p2p.joinTransactionByJoinCode": {
+    "p2p.getTransactionByJoinCode": {
         parameters: {
             query?: never;
             header?: never;
+            path: {
+                join_code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["p2p.Transaction"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "p2p.joinTransactionByJoinCode": {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 join_code: string;
             };
@@ -6636,35 +6816,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    getP2PTransactionByJoinCode: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                joinCode: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["p2p.Transaction"];
                 };
             };
             /** @description Not Found */
@@ -6826,7 +6977,10 @@ export interface operations {
             query: {
                 join_code: string;
             };
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -7055,7 +7209,10 @@ export interface operations {
     "basic.acceptPayment": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -7172,6 +7329,9 @@ export interface operations {
              * @description Bad Request
              *     `code` can be one of the following:
              *       * `payment_method_not_bank_transfer`
+             *       * `paid_with_balance`
+             *
+             *       A transaction with `paid_with_balance` error code means that the buyer's payment was already paid using their Trustap balance, so there are no bank transfer details to provide.
              */
             400: {
                 headers: {
@@ -7242,7 +7402,10 @@ export interface operations {
     "basic.cancelTransaction": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -7418,7 +7581,10 @@ export interface operations {
     "basic.claimTransactionForBuyer": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -7463,7 +7629,10 @@ export interface operations {
     "basic.claimTransactionForSeller": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -7896,7 +8065,10 @@ export interface operations {
             query: {
                 carrier: string;
             };
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -8171,7 +8343,10 @@ export interface operations {
     "basic.setShippoAddress": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -8221,7 +8396,10 @@ export interface operations {
     "basic.setShippoCustomsDeclaration": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -8276,7 +8454,10 @@ export interface operations {
     "basic.setShippoParcelDetails": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -8290,7 +8471,7 @@ export interface operations {
                     height: number;
                     /** Format: double */
                     length: number;
-                    mass_unit: components["schemas"]["basic.DistanceUnit"];
+                    mass_unit: components["schemas"]["basic.MassUnit"];
                     /**
                      * @description Date the shipment will be tendered to the carrier.
                      *     Must be in the format 2014-01-18T00:35:03.463Z
@@ -8332,7 +8513,10 @@ export interface operations {
     "basic.getShippoShippingLabel": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -8367,7 +8551,10 @@ export interface operations {
     "basic.setShippoShippingRate": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -8407,7 +8594,10 @@ export interface operations {
     "basic.getShippoShippingRatesForTransaction": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
@@ -8637,7 +8827,10 @@ export interface operations {
     "basic.trackTransaction": {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description Required in client flows, where you make API calls on behalf of another Trustap user. */
+                "Trustap-User"?: string;
+            };
             path: {
                 transaction_id: number;
             };
